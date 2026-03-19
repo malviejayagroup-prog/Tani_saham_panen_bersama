@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donasi — Kembali ke Akar · Bahula Tani Nusantara</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════
+   BAHULA TANI NUSANTARA — ULTRA LUXURY LIVING DARK THEME
+   Latar Hidup · Partikel Emas · Cahaya Bergerak
+══════════════════════════════════════════════════════ */
+:root{
+  --bg0:#000000; --bg1:#06060a; --bg2:#0d0d14; --bg3:#111118;
+  --gold1:#a0700a; --gold2:#c9920d; --gold3:#e8b830; --gold4:#f7d96a; --gold5:#fff3b0;
+  --rose:#8b3a1a; --rose2:#c4581e;
+  --text:#f0e4c0; --dim:#c4a060; --ghost:#6a5a30;
+  --shimmer:linear-gradient(105deg,#7a5000 0%,#c9920d 30%,#f7d96a 50%,#c9920d 70%,#7a5000 100%);
+  --shimmer2:linear-gradient(105deg,#5a3800 0%,#a0700a 35%,#fff3b0 50%,#a0700a 65%,#5a3800 100%);
+  --glow:rgba(232,184,48,.14);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg0);
+  font-family:'DM Sans',sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ══ CANVAS PARTIKEL GLOBAL ══ */
+#particleCanvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;opacity:.6;
+}
+
+/* ══ ANIMASI KEYFRAMES ══ */
+@keyframes shimmer{0%{background-position:200% center;}100%{background-position:-200% center;}}
+@keyframes rise{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes breathe{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:.7;transform:scale(1.08);}}
+@keyframes scrollBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(9px);}}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.8;}100%{transform:translate(-50%,-50%) scale(2.5);opacity:0;}}
+@keyframes glowRing{0%,100%{box-shadow:0 0 20px rgba(232,184,48,.1),inset 0 0 20px rgba(232,184,48,.04);}50%{box-shadow:0 0 50px rgba(232,184,48,.25),inset 0 0 30px rgba(232,184,48,.08);}}
+@keyframes textFlicker{0%,90%,100%{opacity:1;}91%,94%{opacity:.85;}}
+@keyframes rotateSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes scanline{0%{transform:translateY(-100%);}100%{transform:translateY(100vh);}}
+
+/* ══ UTILITY ══ */
+.gold-text{
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.mission-h{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,4vw,44px);font-weight:700;
+  color:var(--text);line-height:1.12;margin-bottom:20px;
+}
+.mission-h em{
+  font-style:italic;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.mission-p{font-size:15px;line-height:1.95;color:var(--dim);max-width:600px;margin:0 auto 48px;}
+
+/* ══ SEKSI PEMISAH ══ */
+.gold-line{height:1px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold4),var(--gold2),transparent);}
+
+/* ══ LATAR HIDUP — AURORA LAYER ══ */
+.aurora-bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.aurora-bg .a1{
+  position:absolute;width:80vw;height:80vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(180,130,10,.06) 0%,transparent 70%);
+  top:-20%;left:-10%;animation:floatY 12s ease-in-out infinite;
+}
+.aurora-bg .a2{
+  position:absolute;width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(100,60,180,.04) 0%,transparent 70%);
+  bottom:-10%;right:-5%;animation:floatY 15s ease-in-out infinite reverse;
+}
+.aurora-bg .a3{
+  position:absolute;width:40vw;height:40vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,140,20,.05) 0%,transparent 70%);
+  top:40%;left:60%;animation:floatY 18s ease-in-out infinite 3s;
+}
+
+/* ══ HERO ══ */
+.hero{
+  min-height:100vh;background:transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 24px 100px;text-align:center;
+  position:relative;overflow:hidden;z-index:1;
+}
+/* Radial vignette */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%,transparent 30%,rgba(0,0,0,.6) 100%),
+    radial-gradient(ellipse 60% 40% at 50% 60%,rgba(232,184,48,.07),transparent);
+  pointer-events:none;z-index:0;
+}
+/* Decorative border ring */
+.hero::after{
+  content:'';position:absolute;
+  width:min(600px,90vw);height:min(600px,90vw);
+  border-radius:50%;
+  border:1px solid rgba(232,184,48,.06);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:0;
+  animation:breathe 8s ease-in-out infinite;
+}
+.hero-ring2{
+  position:absolute;
+  width:min(800px,110vw);height:min(800px,110vw);
+  border-radius:50%;
+  border:1px solid rgba(232,184,48,.03);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:0;
+  animation:breathe 12s ease-in-out infinite 2s;
+}
+.hero-inner{position:relative;z-index:2;max-width:700px;}
+.bismillah{
+  font-family:'Amiri',serif;font-size:clamp(18px,3.5vw,28px);
+  letter-spacing:5px;margin-bottom:30px;
+  background:var(--shimmer2);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 6s linear infinite,rise .9s ease both;
+  text-shadow:none;
+}
+.badge-org{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid rgba(232,184,48,.3);
+  background:rgba(232,184,48,.05);
+  backdrop-filter:blur(10px);
+  border-radius:40px;padding:6px 20px;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold3);margin-bottom:30px;animation:rise .9s .08s ease both;
+  box-shadow:0 0 20px rgba(232,184,48,.08);
+}
+.hero-tagline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(13px,2.2vw,18px);font-style:italic;
+  color:rgba(240,228,192,.25);letter-spacing:.5px;
+  margin-bottom:16px;animation:rise .9s .12s ease both;
+}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,8vw,88px);font-weight:700;
+  line-height:.95;color:var(--text);
+  margin-bottom:18px;animation:rise .9s .16s ease both;
+  text-shadow:0 0 80px rgba(232,184,48,.12);
+}
+.hero-h1 em{
+  display:block;font-style:italic;font-weight:300;
+  color:rgba(240,228,192,.3);font-size:.58em;line-height:1.35;
+}
+.hero-divider{
+  width:100px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold3),transparent);
+  margin:26px auto;animation:rise .9s .2s ease both;
+}
+.hero-desc{
+  font-size:clamp(13px,2vw,16px);line-height:2;
+  color:rgba(240,228,192,.35);max-width:500px;
+  margin:0 auto 48px;animation:rise .9s .24s ease both;
+}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2),var(--gold1));
+  background-size:200% auto;
+  color:#000;padding:16px 36px;border-radius:50px;
+  font-size:14px;font-weight:800;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;letter-spacing:.5px;
+  box-shadow:0 6px 40px rgba(200,146,13,.4),0 0 0 1px rgba(232,184,48,.2);
+  transition:all .3s;animation:shimmer 3s linear infinite;
+}
+.cta-primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 50px rgba(200,146,13,.55),0 0 60px rgba(232,184,48,.2);
+}
+.hero-cta-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:rise .9s .3s ease both;}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;animation:rise 1s .6s ease both;z-index:2;gap:4px;}
+.scroll-dot{width:5px;height:5px;border-radius:50%;background:var(--gold2);animation:scrollBounce 2s infinite;opacity:.4;}
+
+/* ══ SECTIONS BASE ══ */
+section, .counter-strip, .timer-strip, .share-sec{
+  position:relative;z-index:1;
+}
+
+/* ══ MISSION ══ */
+.mission{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(6,6,10,.97) 5%,rgba(6,6,10,.97) 95%,rgba(0,0,0,0) 100%);
+  backdrop-filter:blur(4px);
+}
+.mission::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2),var(--gold4),var(--gold2),transparent);
+}
+.mwrap{max-width:800px;margin:0 auto;text-align:center;}
+.pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;}
+.pillar{
+  background:rgba(232,184,48,.03);
+  backdrop-filter:blur(16px);
+  border-radius:22px;padding:30px 22px;
+  border:1px solid rgba(232,184,48,.12);
+  text-align:left;transition:all .35s;position:relative;overflow:hidden;
+}
+.pillar::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(232,184,48,.05),transparent 60%);
+  opacity:0;transition:.35s;
+}
+.pillar::after{
+  content:'';position:absolute;
+  top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(transparent 0deg,rgba(232,184,48,.03) 30deg,transparent 60deg);
+  animation:rotateSlow 20s linear infinite;opacity:0;transition:.3s;
+}
+.pillar:hover{transform:translateY(-6px);border-color:rgba(232,184,48,.35);box-shadow:0 16px 50px rgba(232,184,48,.08),inset 0 1px 0 rgba(232,184,48,.1);}
+.pillar:hover::before{opacity:1;}
+.pillar:hover::after{opacity:1;}
+.pillar-icon{font-size:34px;margin-bottom:14px;}
+.pillar-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--gold3);margin-bottom:7px;}
+.pillar-desc{font-size:12px;color:var(--dim);line-height:1.85;}
+
+/* ══ DONASI FORM ══ */
+.donasi-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(6,6,10,.97),rgba(0,0,0,.98));
+}
+.donasi-sec::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2),var(--gold4),var(--gold2),transparent);
+}
+.donasi-sec::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0,rgba(232,184,48,.04),transparent);
+  pointer-events:none;
+}
+.dwrap{max-width:560px;margin:0 auto;position:relative;z-index:1;}
+.donasi-card{
+  background:rgba(10,8,2,.8);
+  backdrop-filter:blur(30px);
+  border-radius:28px;overflow:hidden;
+  border:1px solid rgba(232,184,48,.2);
+  box-shadow:
+    0 0 80px rgba(232,184,48,.07),
+    0 30px 80px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(232,184,48,.1);
+  animation:glowRing 5s ease-in-out infinite;
+}
+.donasi-head{
+  background:linear-gradient(135deg,#060400,#140e00,#0a0700);
+  padding:30px 28px 26px;text-align:center;
+  border-bottom:1px solid rgba(232,184,48,.15);
+  position:relative;overflow:hidden;
+}
+.donasi-head::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 100% 200% at 50% 100%,rgba(232,184,48,.08),transparent);
+}
+.donasi-head::after{
+  content:'';position:absolute;top:0;left:-100%;width:300%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,184,48,.4),transparent);
+  animation:shimmer 4s linear infinite;
+}
+.dh-arab{
+  font-family:'Amiri',serif;font-size:20px;letter-spacing:2px;margin-bottom:12px;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 5s linear infinite;position:relative;
+}
+.dh-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--text);position:relative;}
+.dh-sub{font-size:10px;color:var(--ghost);letter-spacing:1px;margin-top:4px;position:relative;}
+.donasi-body{padding:32px;background:transparent;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold2);margin-bottom:7px;}
+.field input,.field textarea{
+  width:100%;padding:13px 16px;
+  border:1px solid rgba(232,184,48,.18);border-radius:12px;
+  font-size:14px;font-family:'DM Sans',sans-serif;
+  color:var(--text);background:rgba(232,184,48,.03);
+  backdrop-filter:blur(10px);transition:all .25s;
+}
+.field input::placeholder,.field textarea::placeholder{color:rgba(240,228,192,.18);}
+.field textarea{height:80px;resize:vertical;}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--gold3);
+  background:rgba(232,184,48,.06);
+  box-shadow:0 0 0 3px rgba(232,184,48,.1),0 0 20px rgba(232,184,48,.08);
+}
+.paket-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold2);margin-bottom:10px;}
+.paket-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.pil{
+  background:rgba(232,184,48,.03);border:1px solid rgba(232,184,48,.15);
+  border-radius:12px;padding:13px 6px;text-align:center;cursor:pointer;
+  transition:all .25s;backdrop-filter:blur(6px);
+}
+.pil:hover{border-color:rgba(232,184,48,.45);background:rgba(232,184,48,.08);transform:translateY(-1px);}
+.pil.on{
+  border-color:var(--gold3);background:rgba(232,184,48,.12);
+  box-shadow:0 0 20px rgba(232,184,48,.15),inset 0 1px 0 rgba(232,184,48,.2);
+}
+.pil-v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold3);}
+.pil-l{font-size:9px;color:var(--ghost);margin-top:2px;}
+.free-row{
+  display:flex;align-items:center;gap:8px;
+  border:1px solid rgba(232,184,48,.18);border-radius:12px;
+  padding:2px 2px 2px 14px;background:rgba(232,184,48,.03);
+  backdrop-filter:blur(6px);margin-bottom:18px;
+}
+.free-pfx{font-size:13px;font-weight:800;color:var(--gold2);}
+.free-input{flex:1;padding:11px 8px;border:none;background:transparent;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;color:var(--gold3);}
+.free-input:focus{outline:none;}
+.free-input::placeholder{color:rgba(240,228,192,.18);font-weight:400;}
+.opsi-toggle{
+  width:100%;background:transparent;border:1px solid rgba(232,184,48,.12);
+  border-radius:12px;padding:12px 16px;font-size:12px;font-weight:700;
+  color:var(--dim);cursor:pointer;font-family:'DM Sans',sans-serif;
+  text-align:left;margin-bottom:10px;transition:all .25s;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.opsi-toggle:hover{border-color:rgba(232,184,48,.3);color:var(--gold3);}
+.arr{transition:transform .3s;}
+.opsi-toggle.open .arr{transform:rotate(180deg);}
+.opsi-panel{display:none;padding:18px;background:rgba(0,0,0,.4);border-radius:14px;margin-bottom:20px;border:1px solid rgba(232,184,48,.1);backdrop-filter:blur(10px);}
+.opsi-panel.open{display:block;}
+.opsi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.opsi-field label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold2);margin-bottom:6px;display:block;}
+.oselect{width:100%;padding:10px 12px;border:1px solid rgba(232,184,48,.2);border-radius:10px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--text);background:#0d0d00;}
+.opsi-note{font-size:10px;color:var(--ghost);font-style:italic;margin-top:10px;}
+.transfer-box{
+  background:linear-gradient(135deg,rgba(13,10,0,.9),rgba(20,15,0,.9));
+  border:1px solid rgba(232,184,48,.2);border-radius:18px;padding:22px;margin:20px 0;
+  backdrop-filter:blur(16px);
+  box-shadow:inset 0 1px 0 rgba(232,184,48,.08);
+}
+.tb-title{
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:16px;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.tb-bank-name{font-size:12px;font-weight:700;color:var(--dim);margin-bottom:4px;}
+.tb-bank-num{
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;
+  color:var(--gold3);cursor:pointer;letter-spacing:3px;transition:all .25s;
+}
+.tb-bank-num:hover{color:var(--gold4);text-shadow:0 0 30px rgba(232,184,48,.5);}
+.tb-bank-an{font-size:10px;color:var(--ghost);margin-top:2px;margin-bottom:14px;}
+.tb-divider{height:1px;background:rgba(232,184,48,.08);margin:14px 0;}
+.ewalet-label{font-size:10px;color:var(--ghost);margin-bottom:10px;}
+.ewalet-row{display:flex;gap:8px;flex-wrap:wrap;}
+.ewalet{
+  flex:1;min-width:80px;
+  background:rgba(232,184,48,.04);border:1px solid rgba(232,184,48,.14);
+  border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;
+  transition:all .25s;backdrop-filter:blur(8px);
+}
+.ewalet:hover{border-color:rgba(232,184,48,.38);background:rgba(232,184,48,.09);box-shadow:0 0 20px rgba(232,184,48,.08);}
+.ewalet-name{font-size:11px;font-weight:800;color:var(--gold3);}
+.ewalet-num{font-size:9px;color:var(--ghost);margin-top:2px;}
+.wa-btn{
+  width:100%;background:linear-gradient(135deg,#056040,#0a9060);color:white;
+  border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;
+  cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:10px;
+  transition:all .3s;box-shadow:0 4px 24px rgba(5,96,64,.45);
+}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(5,96,64,.55);}
+.sertif-link{
+  width:100%;background:transparent;
+  border:1px solid rgba(232,184,48,.25);color:var(--gold2);
+  border-radius:14px;padding:12px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s;
+}
+.sertif-link:hover{border-color:var(--gold3);color:var(--gold3);background:rgba(232,184,48,.05);}
+
+/* ══ COUNTER ══ */
+.counter-strip{
+  padding:36px 24px;
+  background:linear-gradient(135deg,rgba(10,8,0,.95),rgba(5,5,0,.98));
+  border-top:1px solid rgba(232,184,48,.18);
+  border-bottom:1px solid rgba(232,184,48,.18);
+  backdrop-filter:blur(20px);
+}
+.counter-strip::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 100% at 50% 50%,rgba(232,184,48,.04),transparent);
+}
+.counter-inner{max-width:800px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;position:relative;}
+.ctr-item{flex:1;min-width:130px;text-align:center;padding:18px 20px;position:relative;}
+.ctr-item+.ctr-item::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:rgba(232,184,48,.12);}
+.ctr-val{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,54px);font-weight:700;line-height:1;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.ctr-label{font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:2px;margin-top:5px;}
+
+/* ══ COUNTDOWN ══ */
+.timer-strip{
+  padding:30px 24px;
+  background:linear-gradient(135deg,rgba(5,4,0,.98),rgba(8,7,0,.98));
+  border-bottom:1px solid rgba(232,184,48,.12);
+  backdrop-filter:blur(20px);
+}
+.timer-inner{max-width:680px;margin:0 auto;text-align:center;}
+.timer-label{font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:2px;margin-bottom:18px;}
+.timer-boxes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.tbox{
+  background:rgba(232,184,48,.04);
+  border:1px solid rgba(232,184,48,.22);
+  backdrop-filter:blur(12px);
+  border-radius:16px;padding:16px 20px;min-width:76px;text-align:center;
+  box-shadow:0 0 30px rgba(232,184,48,.06),inset 0 1px 0 rgba(232,184,48,.08);
+}
+.tbox-val{
+  font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;line-height:1;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.tbox-lbl{font-size:9px;color:var(--ghost);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.tbox-sep{font-family:'Cormorant Garamond',serif;font-size:32px;color:rgba(232,184,48,.25);align-self:center;padding-bottom:16px;}
+
+/* ══ KALKULATOR ══ */
+.kalk-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(6,6,10,.97),rgba(2,2,4,.98));
+}
+.kalk-sec::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(232,184,48,.03),transparent);
+}
+.kalk-wrap{max-width:680px;margin:0 auto;position:relative;}
+.kalk-card{
+  background:rgba(8,7,0,.7);
+  backdrop-filter:blur(30px);
+  border:1px solid rgba(232,184,48,.22);
+  border-radius:28px;padding:40px 34px;
+  box-shadow:0 0 80px rgba(232,184,48,.07),0 20px 60px rgba(0,0,0,.6);
+}
+@media(max-width:480px){.kalk-card{padding:26px 18px;}}
+.kalk-slider-wrap{margin:30px 0;}
+.kalk-slider{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(232,184,48,.12);outline:none;cursor:pointer;}
+.kalk-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--gold1),var(--gold3));cursor:pointer;box-shadow:0 0 20px rgba(232,184,48,.7);}
+.kalk-nominal{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,58px);font-weight:700;
+  text-align:center;margin-bottom:6px;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.kalk-setara{font-size:12px;color:var(--ghost);text-align:center;margin-bottom:30px;}
+.kalk-hasil{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;}
+.kh-item{
+  background:rgba(232,184,48,.04);border:1px solid rgba(232,184,48,.12);
+  border-radius:16px;padding:18px 12px;text-align:center;transition:all .3s;
+  backdrop-filter:blur(8px);
+}
+.kh-item.active{border-color:rgba(232,184,48,.4);background:rgba(232,184,48,.08);box-shadow:0 0 30px rgba(232,184,48,.08);}
+.kh-icon{font-size:30px;margin-bottom:8px;}
+.kh-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold3);}
+.kh-label{font-size:10px;color:var(--ghost);margin-top:2px;}
+
+/* ══ GALERI ══ */
+.galeri-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(2,2,4,.98),rgba(6,6,10,.97));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.galeri-wrap{max-width:880px;margin:0 auto;}
+.galeri-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px;}
+@media(max-width:560px){.galeri-grid{grid-template-columns:repeat(2,1fr);}}
+.gitem{
+  border-radius:18px;overflow:hidden;position:relative;aspect-ratio:1;cursor:pointer;
+  border:1px solid rgba(232,184,48,.1);transition:all .35s;
+}
+.gitem:hover{border-color:rgba(232,184,48,.38);box-shadow:0 0 40px rgba(232,184,48,.1),0 10px 30px rgba(0,0,0,.6);}
+.gitem:first-child{grid-column:span 2;aspect-ratio:2/1;}
+.gitem-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#060500,#120f00);font-size:52px;transition:transform .4s;}
+.gitem:hover .gitem-img{transform:scale(1.06);}
+.gitem-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88),transparent 60%);display:flex;align-items:flex-end;padding:18px;}
+.gitem-cap{font-size:11px;font-weight:700;color:rgba(240,228,192,.9);line-height:1.4;}
+.galeri-note{text-align:center;font-size:11px;color:var(--ghost);margin-top:16px;font-style:italic;}
+
+/* ══ TESTIMONI ══ */
+.testi-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(6,6,10,.97),rgba(2,2,4,.98));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.testi-wrap{max-width:880px;margin:0 auto;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;margin-top:38px;}
+.titem-card{
+  background:rgba(232,184,48,.025);
+  backdrop-filter:blur(20px);
+  border-radius:22px;padding:28px;
+  border:1px solid rgba(232,184,48,.15);
+  position:relative;overflow:hidden;transition:all .35s;
+}
+.titem-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(232,184,48,.05),transparent 60%);
+  opacity:0;transition:.35s;
+}
+.titem-card:hover{transform:translateY(-5px);border-color:rgba(232,184,48,.35);box-shadow:0 16px 50px rgba(232,184,48,.07);}
+.titem-card:hover::before{opacity:1;}
+.titem-card::after{content:'"';position:absolute;top:8px;right:14px;font-family:'Cormorant Garamond',serif;font-size:90px;color:rgba(232,184,48,.06);line-height:1;}
+.titem-quote{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text);line-height:1.85;margin-bottom:20px;position:relative;}
+.titem-person{display:flex;align-items:center;gap:10px;}
+.titem-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold1),var(--gold3));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid rgba(232,184,48,.25);box-shadow:0 0 16px rgba(232,184,48,.2);}
+.titem-name{font-size:12px;font-weight:700;color:var(--gold3);}
+.titem-role{font-size:10px;color:var(--ghost);margin-top:1px;}
+
+/* ══ DAMPAK ══ */
+.dampak{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(2,2,4,.98),rgba(6,6,10,.97));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.dampak-inner{max-width:800px;margin:0 auto;text-align:center;}
+.dampak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;margin-top:38px;}
+.dcard{
+  background:rgba(232,184,48,.03);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(232,184,48,.15);
+  border-radius:20px;padding:26px 18px;text-align:center;transition:all .35s;
+}
+.dcard:hover{border-color:rgba(232,184,48,.38);box-shadow:0 0 40px rgba(232,184,48,.07);transform:translateY(-4px);}
+.dcard-i{font-size:34px;margin-bottom:13px;}
+.dcard-t{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--gold3);margin-bottom:6px;}
+.dcard-d{font-size:11px;color:var(--dim);line-height:1.8;}
+
+/* ══ PETA ══ */
+.peta-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(6,6,10,.97),rgba(2,2,4,.98));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.peta-wrap{max-width:880px;margin:0 auto;}
+.peta-container{border-radius:22px;overflow:hidden;border:1px solid rgba(232,184,48,.22);box-shadow:0 0 60px rgba(232,184,48,.06);margin-top:34px;}
+.peta-map{width:100%;height:320px;background:linear-gradient(135deg,#040300,#0d0a00);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.peta-map-bg{position:absolute;inset:0;opacity:.35;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(232,184,48,.07) 39px,rgba(232,184,48,.07) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(232,184,48,.07) 39px,rgba(232,184,48,.07) 40px);}
+.peta-pins{position:relative;z-index:1;width:100%;height:100%;}
+.peta-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;transition:transform .2s;}
+.peta-pin:hover{transform:translate(-50%,-100%) scale(1.18);}
+.pp-dot{width:14px;height:14px;border-radius:50%;background:var(--gold3);border:3px solid #000;box-shadow:0 0 16px rgba(232,184,48,.8);margin:0 auto;}
+.pp-pulse{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(232,184,48,.25);animation:pulse 2s infinite;}
+.pp-label{background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border:1px solid rgba(232,184,48,.3);border-radius:6px;padding:3px 8px;font-size:9px;font-weight:800;color:var(--gold3);white-space:nowrap;margin-top:4px;text-align:center;}
+.peta-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;padding:20px;background:rgba(2,2,0,.9);backdrop-filter:blur(12px);}
+.ploc{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .2s;border:1px solid transparent;}
+.ploc:hover,.ploc.active{background:rgba(232,184,48,.07);border-color:rgba(232,184,48,.22);}
+.ploc-dot{width:8px;height:8px;border-radius:50%;background:var(--gold2);flex-shrink:0;box-shadow:0 0 8px rgba(232,184,48,.6);}
+.ploc-name{font-size:12px;font-weight:700;color:var(--gold3);}
+.ploc-kab{font-size:10px;color:var(--ghost);}
+
+/* ══ FAQ ══ */
+.faq-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(2,2,4,.98),rgba(6,6,10,.97));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.faq-wrap{max-width:680px;margin:0 auto;}
+.faq-list{margin-top:34px;display:flex;flex-direction:column;gap:10px;}
+.faq-item{
+  background:rgba(232,184,48,.025);
+  backdrop-filter:blur(16px);
+  border-radius:16px;border:1px solid rgba(232,184,48,.15);
+  overflow:hidden;transition:border-color .25s;
+}
+.faq-item.open{border-color:rgba(232,184,48,.38);box-shadow:0 0 30px rgba(232,184,48,.06);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;gap:12px;}
+.faq-q-txt{font-size:14px;font-weight:700;color:var(--gold3);line-height:1.4;}
+.faq-arrow{font-size:11px;color:var(--gold2);flex-shrink:0;transition:transform .3s;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .38s ease;}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a-inner{padding:0 22px 20px;font-size:13px;color:var(--dim);line-height:1.85;border-top:1px solid rgba(232,184,48,.08);}
+
+/* ══ ANGGARAN ══ */
+.anggaran-sec{
+  padding:90px 24px;
+  background:linear-gradient(180deg,rgba(6,6,10,.97),rgba(2,2,4,.98));
+  border-top:1px solid rgba(232,184,48,.08);
+}
+.awrap{max-width:880px;margin:0 auto;}
+.notice-box{
+  background:rgba(232,184,48,.04);backdrop-filter:blur(16px);
+  border:1px solid rgba(232,184,48,.22);border-radius:18px;
+  padding:22px 24px;margin-bottom:40px;display:flex;gap:14px;align-items:flex-start;
+  box-shadow:inset 0 1px 0 rgba(232,184,48,.08);
+}
+.notice-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.notice-title{font-size:13px;font-weight:700;color:var(--gold3);margin-bottom:5px;}
+.notice-body{font-size:12px;color:var(--dim);line-height:1.85;}
+.notice-body strong{color:var(--text);}
+.alloc-bar-wrap{margin-bottom:40px;background:rgba(232,184,48,.025);backdrop-filter:blur(12px);border-radius:18px;padding:22px;border:1px solid rgba(232,184,48,.12);}
+.alloc-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
+.alloc-bar{height:38px;border-radius:19px;overflow:hidden;display:flex;margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);}
+.ab-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:rgba(0,0,0,.8);transition:all .3s;cursor:default;white-space:nowrap;overflow:hidden;}
+.ab-seg:hover{filter:brightness(1.15);}
+.alloc-legend{display:flex;flex-wrap:wrap;gap:10px;}
+.al-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--dim);}
+.al-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.realisasi-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--gold3);margin-bottom:6px;}
+.realisasi-sub{font-size:13px;color:var(--dim);margin-bottom:22px;line-height:1.75;}
+.realisasi-total-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(232,184,48,.1);border:1px solid rgba(232,184,48,.3);border-radius:30px;padding:8px 20px;font-size:13px;font-weight:800;color:var(--gold3);margin-bottom:26px;box-shadow:0 0 20px rgba(232,184,48,.1);}
+.realisasi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:44px;}
+.ritem{background:rgba(232,184,48,.03);backdrop-filter:blur(8px);border-radius:14px;padding:16px;border:1px solid rgba(232,184,48,.12);display:flex;gap:12px;align-items:flex-start;transition:all .3s;}
+.ritem:hover{border-color:rgba(232,184,48,.3);box-shadow:0 4px 24px rgba(232,184,48,.07);}
+.ritem-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold1),var(--gold3));color:#000;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.ritem-body{flex:1;}
+.ritem-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3;}
+.ritem-rp{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold3);}
+.ritem-note{font-size:10px;color:var(--ghost);margin-top:1px;}
+.target-sec-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--gold3);margin-bottom:6px;}
+.target-sec-sub{font-size:13px;color:var(--dim);margin-bottom:22px;}
+.target-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:44px;}
+.titem{background:rgba(232,184,48,.03);backdrop-filter:blur(8px);border-radius:13px;padding:14px;border:1px solid rgba(232,184,48,.1);display:flex;gap:10px;align-items:center;transition:all .25s;}
+.titem:hover{border-color:rgba(232,184,48,.3);background:rgba(232,184,48,.06);}
+.titem-icon{font-size:22px;flex-shrink:0;}
+.titem-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3;}
+.titem-qty{font-size:10px;color:var(--gold2);font-weight:700;margin-top:2px;}
+.khusus-grid{display:grid;grid-template-columns:1fr;max-width:560px;margin:0 auto 34px;}
+.kbox{border-radius:20px;padding:26px 24px;}
+.kbox-b{background:rgba(232,184,48,.03);backdrop-filter:blur(16px);border:1px solid rgba(232,184,48,.18);box-shadow:inset 0 1px 0 rgba(232,184,48,.06);}
+.kbox-icon{font-size:30px;margin-bottom:12px;}
+.kbox-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold3);margin-bottom:9px;line-height:1.2;}
+.kbox-body{font-size:12px;color:var(--dim);line-height:1.9;}
+.kbox-body strong{color:var(--text);}
+.kbox-amount{display:inline-block;margin-top:12px;background:rgba(232,184,48,.1);border:1px solid rgba(232,184,48,.25);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:800;color:var(--gold3);}
+.progress-total-wrap{background:rgba(232,184,48,.03);backdrop-filter:blur(12px);border-radius:20px;padding:26px;border:1px solid rgba(232,184,48,.15);}
+.pt-title{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.pt-nums{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+.pt-terkumpul{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold3);}
+.pt-target{font-size:12px;color:var(--ghost);}
+.pt-bar{height:10px;background:rgba(232,184,48,.08);border-radius:5px;overflow:hidden;}
+.pt-fill{height:100%;background:linear-gradient(90deg,var(--gold1),var(--gold3),var(--gold4));border-radius:5px;width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(232,184,48,.4);}
+.pt-note{font-size:10px;color:var(--ghost);margin-top:8px;font-style:italic;}
+
+/* ══ SHARE ══ */
+.share-sec{
+  padding:70px 24px;
+  background:linear-gradient(180deg,rgba(2,2,4,.98),rgba(6,6,10,.97));
+  text-align:center;border-top:1px solid rgba(232,184,48,.08);
+}
+.share-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,38px);font-weight:700;color:var(--text);margin-bottom:8px;}
+.share-title em{font-style:italic;background:var(--shimmer);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;}
+.share-sub{font-size:13px;color:var(--dim);margin-bottom:30px;}
+.share-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.share-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:50px;font-size:13px;font-weight:800;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;letter-spacing:.3px;}
+.share-wa{background:#25D366;color:#fff;box-shadow:0 4px 24px rgba(37,211,102,.35);}
+.share-wa:hover{background:#1da851;transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.45);}
+.share-ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;box-shadow:0 4px 24px rgba(131,58,180,.35);}
+.share-ig:hover{transform:translateY(-2px);}
+.share-copy{background:rgba(232,184,48,.06);color:var(--gold2);border:1px solid rgba(232,184,48,.22);backdrop-filter:blur(8px);}
+.share-copy:hover{border-color:var(--gold3);color:var(--gold3);box-shadow:0 0 20px rgba(232,184,48,.12);}
+
+/* ══ FOOTER ══ */
+footer{
+  background:linear-gradient(180deg,rgba(6,6,10,.97),#000);
+  padding:50px 24px;text-align:center;
+  border-top:1px solid rgba(232,184,48,.18);
+  position:relative;z-index:1;
+}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),var(--gold4),var(--gold2),transparent);}
+.ft-name{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:6px;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 5s linear infinite;
+}
+.ft-addr{font-size:11px;color:var(--ghost);margin-bottom:8px;letter-spacing:.5px;}
+.ft-contact{font-size:11px;color:var(--dim);margin-bottom:12px;}
+.ft-arab{
+  font-family:'Amiri',serif;font-size:20px;letter-spacing:3px;margin-top:14px;
+  background:var(--shimmer2);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 6s linear infinite;
+}
+.ft-copy{font-size:10px;color:var(--ghost);margin-top:16px;opacity:.4;}
+
+/* ══ TOAST ══ */
+.toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:rgba(10,8,0,.9);backdrop-filter:blur(20px);
+  border:1px solid rgba(232,184,48,.4);
+  color:var(--gold3);padding:12px 26px;border-radius:30px;
+  font-size:12px;font-weight:700;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  z-index:9999;pointer-events:none;white-space:nowrap;
+  box-shadow:0 4px 30px rgba(232,184,48,.2);
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ══ SERTIFIKAT ══ */
+.sertif-screen{display:none;background:var(--bg1);min-height:100vh;padding-bottom:40px;position:relative;z-index:10;}
+.sertif-wrap{max-width:700px;margin:0 auto;padding:20px;}
+.stbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;flex-wrap:wrap;}
+.stbar-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--gold3);}
+.stbar-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.stbtn{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all .25s;}
+.stbtn-back{background:rgba(232,184,48,.06);color:var(--dim);border:1px solid rgba(232,184,48,.15);}
+.stbtn-dl{background:linear-gradient(135deg,var(--gold1),var(--gold3));color:#000;}
+.stbtn-print{background:rgba(232,184,48,.06);color:var(--dim);border:1px solid rgba(232,184,48,.15);}
+#dlStatus{text-align:center;font-size:12px;color:var(--gold2);padding:8px;display:none;}
+#sertifDoc{background:white;border-radius:22px;overflow:hidden;box-shadow:0 8px 60px rgba(0,0,0,.6),0 0 0 1px rgba(232,184,48,.15);}
+.sc-header{background:linear-gradient(135deg,#1a0d00,#2d1a00,#1a0d00);padding:34px;text-align:center;position:relative;overflow:hidden;}
+.sc-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,160,23,.15),transparent);}
+.sc-ornament-top{text-align:center;font-size:32px;letter-spacing:8px;margin-bottom:12px;opacity:.5;position:relative;}
+.sc-bismillah{font-family:'Amiri',serif;font-size:20px;letter-spacing:3px;margin-bottom:14px;color:#d4a017;position:relative;}
+.sc-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(212,160,23,.4);border-radius:30px;padding:4px 16px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#d4a017;margin-bottom:16px;position:relative;}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:#f5e6c0;margin-bottom:4px;position:relative;}
+.sc-no{font-size:10px;color:rgba(212,160,23,.5);letter-spacing:1px;position:relative;}
+.sc-body{padding:28px 32px;background:white;}
+.sc-intro{font-size:12px;color:#666;text-align:center;margin-bottom:22px;line-height:1.7;font-style:italic;}
+.sc-name-box{background:linear-gradient(135deg,#fffbf0,#fff8e0);border:2px solid #d4a017;border-radius:12px;padding:16px 24px;text-align:center;margin-bottom:24px;}
+.sc-name-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#8a6a00;margin-bottom:4px;}
+.sc-name-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#1a0d00;}
+.sc-details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.sc-det{background:#fafaf8;border-radius:10px;padding:12px 14px;border:1px solid rgba(0,0,0,.06);}
+.sc-det-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8a6a00;margin-bottom:3px;}
+.sc-det-v{font-size:14px;font-weight:700;color:#1a0d00;}
+.sc-nominal-box{background:linear-gradient(135deg,#1a0d00,#2d1a00);border-radius:12px;padding:16px 24px;text-align:center;margin-bottom:20px;}
+.sc-nominal-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(212,160,23,.6);margin-bottom:4px;}
+.sc-nominal-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#d4a017;}
+.sc-pesan-box{background:#f9f9f7;border-left:3px solid #d4a017;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:#4a3a20;line-height:1.7;}
+.sc-footer-bar{background:linear-gradient(135deg,#1a0d00,#2d1a00);padding:20px 28px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
+.sc-ttd{text-align:center;}
+.sc-ttd-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(212,160,23,.5);margin-bottom:8px;}
+.ttd-role{font-size:9px;color:rgba(212,160,23,.4);margin-bottom:2px;}
+.ttd-sig{font-family:'Amiri',serif;font-size:26px;color:#d4a017;font-style:italic;}
+.ttd-line{height:1px;background:rgba(212,160,23,.3);margin:4px 0;}
+.ttd-bar{margin-top:2px;}
+.ttd-name-txt{font-size:11px;font-weight:700;color:#f5e6c0;}
+.ttd-job{font-size:9px;color:rgba(245,230,192,.4);margin-top:1px;}
+.sc-ttd-loc{font-size:9px;color:rgba(212,160,23,.4);margin-top:6px;font-style:italic;}
+.meterai-wrap{text-align:center;}
+.sertif-meterai{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#8b0000,#cc0000);border:3px solid #ff4444;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;transition:all .3s;}
+.sertif-meterai.stamped{box-shadow:0 0 20px rgba(200,0,0,.5);transform:rotate(-15deg);}
+.meterai-txt{color:white;font-size:7px;font-weight:800;text-align:center;line-height:1.3;text-transform:uppercase;letter-spacing:.5px;}
+.meterai-rp{font-size:11px;font-weight:800;color:#ffcccc;}
+
+@media(max-width:560px){
+  .sc-details{grid-template-columns:1fr;}
+  .sc-footer-bar{justify-content:center;}
+}
+@media print{.stbar,.toast,#particleCanvas,.aurora-bg{display:none!important;}.sertif-screen{background:white!important;}}
+
+/* ══ LIVE DONASI FEED ══ */
+.live-sec{
+  padding:70px 24px;
+  background:linear-gradient(180deg,rgba(2,2,4,.98),rgba(6,6,10,.97));
+  border-top:1px solid rgba(232,184,48,.1);
+  position:relative;z-index:1;
+}
+.live-wrap{max-width:780px;margin:0 auto;}
+.live-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+.live-dot{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--gold3);}
+.live-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:livePulse 1.5s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+.live-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.ls-box{
+  background:rgba(232,184,48,.04);backdrop-filter:blur(12px);
+  border:1px solid rgba(232,184,48,.15);border-radius:16px;
+  padding:18px 16px;text-align:center;
+}
+.ls-val{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,32px);font-weight:700;
+  background:var(--shimmer);background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shimmer 4s linear infinite;
+}
+.ls-label{font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+.live-feed{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding-right:4px;}
+.live-feed::-webkit-scrollbar{width:3px;}
+.live-feed::-webkit-scrollbar-track{background:transparent;}
+.live-feed::-webkit-scrollbar-thumb{background:rgba(232,184,48,.2);border-radius:2px;}
+.feed-item{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(232,184,48,.03);backdrop-filter:blur(8px);
+  border:1px solid rgba(232,184,48,.1);border-radius:14px;
+  padding:14px 16px;transition:all .3s;
+  animation:feedIn .5s ease both;
+}
+@keyframes feedIn{from{opacity:0;transform:translateX(-12px);}to{opacity:1;transform:translateX(0);}}
+.feed-item:hover{border-color:rgba(232,184,48,.3);background:rgba(232,184,48,.06);}
+.feed-avatar{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold1),var(--gold3));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;border:1px solid rgba(232,184,48,.25);
+  box-shadow:0 0 12px rgba(232,184,48,.15);
+}
+.feed-body{flex:1;min-width:0;}
+.feed-name{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.feed-tanaman{font-size:10px;color:var(--ghost);margin-top:1px;}
+.feed-right{text-align:right;flex-shrink:0;}
+.feed-nominal{
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;
+  color:var(--gold3);white-space:nowrap;
+}
+.feed-waktu{font-size:10px;color:var(--ghost);margin-top:2px;}
+.feed-empty{text-align:center;padding:40px 20px;color:var(--ghost);font-style:italic;font-size:13px;}
+.live-refresh{
+  display:flex;align-items:center;gap:6px;
+  background:transparent;border:1px solid rgba(232,184,48,.2);
+  color:var(--gold2);border-radius:20px;padding:6px 14px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .25s;
+}
+.live-refresh:hover{border-color:rgba(232,184,48,.4);color:var(--gold3);}
+.live-status{font-size:10px;color:var(--ghost);text-align:center;margin-top:12px;font-style:italic;}
+.sheets-link{color:var(--gold2);text-decoration:none;}
+.sheets-link:hover{color:var(--gold3);}
+@media(max-width:480px){.live-summary{grid-template-columns:1fr 1fr;}.live-summary .ls-box:last-child{grid-column:span 2;}}
+
+/* ══ GALERI FOTO ══ */
+.galeri-sec{padding:80px 24px;background:linear-gradient(180deg,rgba(6,4,0,.99),rgba(2,2,0,.98));position:relative;z-index:1;}
+.galeri-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:40px;}
+.galeri-item{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;border:1px solid rgba(232,184,48,.1);transition:all .3s;}
+.galeri-item:hover{border-color:rgba(232,184,48,.4);transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,184,48,.15);}
+.galeri-item img{width:100%;height:100%;object-fit:cover;}
+.galeri-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px;}
+.galeri-item:hover .galeri-overlay{opacity:1;}
+.galeri-caption{font-size:12px;font-weight:700;color:var(--gold4);}
+.galeri-placeholder{background:linear-gradient(135deg,rgba(232,184,48,.05),rgba(232,184,48,.02));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:28px;color:var(--ghost);}
+.galeri-placeholder span{font-size:11px;color:var(--ghost);}
+
+/* ══ PETA ══ */
+.peta-sec{padding:80px 24px;background:linear-gradient(180deg,rgba(2,2,0,.99),rgba(6,4,0,.98));position:relative;z-index:1;}
+.peta-wrap{max-width:860px;margin:0 auto;}
+.peta-container{position:relative;margin-top:40px;border-radius:20px;overflow:hidden;border:1px solid rgba(232,184,48,.15);}
+#petaCanvas{width:100%;height:420px;background:linear-gradient(135deg,#0a1208,#0d160a,#081008);display:block;}
+.peta-pins{position:absolute;inset:0;pointer-events:none;}
+.peta-pin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;pointer-events:all;transition:all .25s;}
+.peta-pin:hover .pin-dot{transform:scale(1.4);}
+.pin-dot{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold3));box-shadow:0 0 16px rgba(232,184,48,.5);border:2px solid rgba(232,184,48,.8);transition:all .25s;position:relative;}
+.pin-dot::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold3);}
+.pin-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(232,184,48,.3);animation:pinPulse 2s infinite;}
+@keyframes pinPulse{0%{transform:scale(1);opacity:.8;}100%{transform:scale(2.5);opacity:0;}}
+.pin-label{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,8,0,.95);border:1px solid rgba(232,184,48,.3);border-radius:8px;padding:6px 10px;white-space:nowrap;font-size:11px;font-weight:700;color:var(--gold3);pointer-events:none;opacity:0;transition:opacity .2s;}
+.peta-pin:hover .pin-label{opacity:1;}
+.peta-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;}
+.legend-item{display:flex;align-items:center;gap:8px;background:rgba(232,184,48,.04);border:1px solid rgba(232,184,48,.1);border-radius:20px;padding:6px 14px;cursor:pointer;transition:all .25s;font-size:12px;color:var(--dim);}
+.legend-item:hover,.legend-item.active{border-color:rgba(232,184,48,.4);color:var(--gold3);background:rgba(232,184,48,.08);}
+.legend-dot{width:8px;height:8px;border-radius:50%;background:var(--gold3);}
+.peta-info{margin-top:16px;background:rgba(232,184,48,.04);border:1px solid rgba(232,184,48,.15);border-radius:16px;padding:20px 22px;display:none;}
+.peta-info.show{display:block;animation:fadeIn .3s ease;}
+
+/* ══ FORM INVESTOR ══ */
+.form-sec{padding:80px 24px;background:linear-gradient(180deg,rgba(6,4,0,.99),rgba(2,2,0,.98));position:relative;z-index:1;}
+.form-wrap{max-width:680px;margin:0 auto;}
+.inv-form{background:rgba(13,11,0,.9);border:1px solid rgba(232,184,48,.2);border-radius:24px;padding:36px 32px;margin-top:40px;}
+.form-field{margin-bottom:18px;}
+.form-label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold2);margin-bottom:8px;}
+.form-input{width:100%;padding:13px 16px;border:1px solid rgba(232,184,48,.2);border-radius:12px;font-size:14px;font-family:"DM Sans",sans-serif;color:var(--text);background:rgba(232,184,48,.03);transition:all .25s;}
+.form-input::placeholder{color:rgba(240,228,192,.2);}
+.form-input:focus{outline:none;border-color:var(--gold3);box-shadow:0 0 0 3px rgba(232,184,48,.1);}
+.form-input select,.form-select{width:100%;padding:13px 16px;border:1px solid rgba(232,184,48,.2);border-radius:12px;font-size:14px;font-family:"DM Sans",sans-serif;color:var(--text);background:rgba(13,11,0,.9);transition:all .25s;}
+.form-select:focus{outline:none;border-color:var(--gold3);}
+.form-select option{background:#0d0b00;}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#000;border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .3s;margin-top:8px;}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,184,48,.4);}
+.form-success{display:none;text-align:center;padding:32px;background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.2);border-radius:16px;margin-top:20px;}
+.form-success h3{font-family:"Cormorant Garamond",serif;font-size:24px;color:#4ade80;margin-bottom:8px;}
+
+/* ══ SERTIFIKAT ══ */
+.sert-modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+.sert-modal.show{display:flex;}
+.sert-box{max-width:600px;width:100%;animation:fadeIn .4s ease;}
+#sertifikatCanvas{width:100%;border-radius:12px;display:block;}
+.sert-btns{display:flex;gap:12px;margin-top:14px;justify-content:center;}
+.sert-btn{padding:11px 24px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;border:none;transition:all .25s;}
+.sert-btn-dl{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#000;}
+.sert-btn-cl{background:transparent;border:1px solid rgba(232,184,48,.3);color:var(--gold2);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+
+
+</head>
+<body>
+<canvas id="particleCanvas"></canvas>
+<div class="aurora-bg"><div class="a1"></div><div class="a2"></div><div class="a3"></div></div>
+
+<div id="mainScreen">
+
+  <button class="ub-btn" onclick="document.getElementById('donasiSec').scrollIntoView({behavior:'smooth'})">Bantu Sekarang →</button>
+</div>
+<section class="hero">
+  <div class="hero-ring2"></div>
+  <div class="hero-inner">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+    <div class="badge-org">🌿 Yayasan Bahula Tani Nusantara</div>
+    <p class="hero-tagline">Bersama Kami Mengembalikan Pertanian ke Petani</p>
+    <h1 class="hero-h1">
+      Kembali ke Akar
+      <em>Menuju Masa Depan</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Di balik setiap pohon yang berdiri, ada petani yang bertahan. Di balik setiap donasi, ada hutan Gunung Guruh yang diselamatkan. Satu kebaikan Anda — mengalir tanpa henti.</p>
+    <div class="hero-cta-group">
+      <button class="cta-primary" onclick="document.getElementById('donasiSec').scrollIntoView({behavior:'smooth'})">🤲 Berdonasi Sekarang</button>
+      <a href="https://malviejayagroup-prog.github.io/Kisah-jejak-si-jampan165/" target="_blank" style="display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:13px 28px;border-radius:50px;border:1px solid rgba(232,184,48,.35);color:var(--gold3);font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .3s;letter-spacing:.3px;" onmouseover="this.style.background='rgba(232,184,48,.08)';this.style.borderColor='rgba(232,184,48,.6)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(232,184,48,.35)'">📖 Kisah Si Jampang — Jejak Perjuangan</a>
+      <a href="https://malviejayagroup-prog.github.io/Company-profil-baheola-tani/" target="_blank" style="display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:13px 28px;border-radius:50px;border:1px solid rgba(232,184,48,.2);color:rgba(232,184,48,.6);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .3s;" onmouseover="this.style.background='rgba(232,184,48,.05)';this.style.borderColor='rgba(232,184,48,.4)';this.style.color='var(--gold3)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(232,184,48,.2)';this.style.color='rgba(232,184,48,.6)'">🏢 Tentang Kami — Company Profile</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-dot"></div></div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="mwrap">
+    <div class="eyebrow">✦ Mengapa Kami Ada</div>
+    <h2 class="mission-h reveal">Tanah bukan warisan dari nenek moyang —<br><em>ia titipan dari anak cucu</em></h2>
+    <p class="mission-p reveal">Kampung Pasir Ipis, lereng Gunung Guruh Sukabumi, terancam. Petani kehilangan lahan. Hutan tergerus tambang. Kami hadir untuk membalik itu — dengan mengajak Anda menjadi bagian dari solusi.</p>
+    <div class="pillars">
+      <div class="pillar reveal"><div class="pillar-icon">🌱</div><div class="pillar-title">Petani Berdaya</div><div class="pillar-desc">60% donasi langsung ke tangan petani rakyat sebagai upah, bibit, dan modal tanam.</div></div>
+      <div class="pillar reveal"><div class="pillar-icon">🏔️</div><div class="pillar-title">Hutan Terlindungi</div><div class="pillar-desc">Setiap pohon yang tumbuh adalah benteng nyata dari ancaman alih fungsi lahan tambang.</div></div>
+      <div class="pillar reveal"><div class="pillar-icon">📜</div><div class="pillar-title">Jariyah Abadi</div><div class="pillar-desc">Sertifikat pohon digital atas nama Anda — pahala mengalir selama pohon itu berdiri di bumi.</div></div>
+      <div class="pillar reveal"><div class="pillar-icon">🔍</div><div class="pillar-title">Transparan 100%</div><div class="pillar-desc">Laporan dana dan foto kebun nyata dikirim setiap bulan langsung ke WhatsApp Anda.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM DONASI -->
+<section class="donasi-sec" id="donasiSec">
+  <div class="dwrap">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div class="eyebrow">✦ Form Donasi</div>
+      <h2 class="mission-h reveal">Satu langkah Anda,<br><em>seribu manfaat di sana</em></h2>
+    </div>
+    <div class="donasi-card">
+      <div class="donasi-head">
+        <div class="dh-arab">تَصَدَّقُوا وَلَوْ بِشَقِّ تَمْرَةٍ</div>
+        <div class="dh-title">Donasi untuk Petani & Hutan</div>
+        <div class="dh-sub">Yayasan Bahula Tani Nusantara · Sukabumi · 2026</div>
+      </div>
+      <div class="donasi-body">
+
+        <div class="field"><label>Nama Donatur ⭐</label><input id="dNama" placeholder="Nama Anda (akan tercantum di sertifikat)"></div>
+        <div class="field"><label>Nomor WhatsApp ⭐</label><input id="dWA" type="tel" placeholder="08xxxxxxxxxx"></div>
+        <div class="field"><label>Doa / Pesan (opsional)</label><textarea id="dPesan" placeholder="Tuliskan doa atau niat baik Anda untuk para petani..."></textarea></div>
+
+        <div class="paket-label">Pilih Nominal Donasi</div>
+        <div class="paket-row">
+          <div class="pil" onclick="pilihPaket(50000,this)"><div class="pil-v">50rb</div><div class="pil-l">Bibit</div></div>
+          <div class="pil" onclick="pilihPaket(100000,this)"><div class="pil-v">100rb</div><div class="pil-l">Pohon</div></div>
+          <div class="pil" onclick="pilihPaket(500000,this)"><div class="pil-v">500rb</div><div class="pil-l">5 Pohon</div></div>
+          <div class="pil" onclick="pilihPaket(1000000,this)"><div class="pil-v">1jt</div><div class="pil-l">Kebun</div></div>
+        </div>
+        <div class="free-row">
+          <span class="free-pfx">Rp</span>
+          <input class="free-input" id="nominalFree" type="number" placeholder="Atau masukkan nominal lain..." oninput="setFree(this.value)">
+        </div>
+
+        <!-- Opsional tanaman & lokasi -->
+        <button class="opsi-toggle" id="opsiBtn" onclick="toggleOpsi()">
+          🌿 Ingin pilih tanaman & lokasi? (opsional) <span class="arr">▼</span>
+        </button>
+        <div class="opsi-panel" id="opsiPanel">
+          <div class="opsi-grid">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;">Jenis Tanaman</div>
+              <select class="oselect" id="sTanaman">
+                <option value="">— Semua Program —</option>
+                <optgroup label="🥬 Hortikultura (4 Bln)">
+                  <option>🥬 Labu Siam</option><option>🌶️ Cabe Rawit</option><option>🍅 Tomat</option>
+                  <option>🌶️ Cabe Keriting</option><option>🥒 Mentimun</option><option>🌾 Padi</option><option>🌽 Jagung</option>
+                </optgroup>
+                <optgroup label="☕ Perkebunan (1–2 Thn)">
+                  <option>☕ Kopi</option><option>🌰 Pala</option><option>🌿 Kapulaga</option><option>🌸 Cengkeh</option>
+                  <option>🥜 Kacang Inchi</option><option>🌱 Porang</option><option>🍋 Jeruk Lemon</option>
+                  <option>🍊 Jeruk California</option><option>🍈 Pepaya California</option>
+                </optgroup>
+                <optgroup label="🌳 Pohon Kayu (5 Thn)">
+                  <option>🌳 Sengon</option><option>🌲 Jati</option><option>🌿 Beringin</option><option>🌴 Akasia</option><option>🌳 Mahoni</option>
+                </optgroup>
+              </select>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;">Lokasi Kebun</div>
+              <select class="oselect" id="sLokasi">
+                <option value="">— Semua Lokasi —</option>
+                <option>🏔️ Pasir Ipis, Gunung Guruh</option>
+                <option>🌿 Cikaret, Sukabumi</option>
+                <option>🌾 Cibadak, Sukabumi</option>
+                <option>🌲 Cianjur, Jabar</option>
+                <option>🌳 Lebak, Banten</option>
+              </select>
+            </div>
+          </div>
+          <p class="opsi-note">Jika tidak dipilih, donasi Anda akan dialokasikan ke program yang paling membutuhkan. Pilihan akan tercantum di sertifikat.</p>
+        </div>
+
+        <!-- Transfer -->
+        <div class="transfer-box">
+          <div class="tb-title">💳 Transfer Donasi ke</div>
+          <div style="margin-bottom:14px;">
+            <div class="tb-bank-name">🏦 Bank Mandiri</div>
+            <div class="tb-bank-num" onclick="salinRek()" title="Klik untuk salin">1820016298168</div>
+            <div class="tb-bank-an">a.n. HUDRI · Yayasan Bahula Tani Nusantara</div>
+          </div>
+          <div class="tb-divider"></div>
+          <div class="ewalet-label">Atau via E-Wallet (klik untuk salin nomor)</div>
+          <div class="ewalet-row">
+            <div class="ewalet" onclick="salinEwalet('GoPay','083871666136')"><div class="ewalet-name">GoPay</div><div class="ewalet-num">083871666136</div></div>
+            <div class="ewalet" onclick="salinEwalet('OVO','083871666136')"><div class="ewalet-name">OVO</div><div class="ewalet-num">083871666136</div></div>
+            <div class="ewalet" onclick="salinEwalet('LinkAja','083871666136')"><div class="ewalet-name">LinkAja</div><div class="ewalet-num">083871666136</div></div>
+          </div>
+        </div>
+
+        <button class="wa-btn" onclick="kirimWA()">💬 Konfirmasi Donasi via WhatsApp</button>
+        <button class="sertif-link" onclick="buatSertifikat()">📜 Buat Sertifikat Pohon Digital</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAMPAK -->
+<section class="dampak">
+  <div class="dampak-inner">
+    <div class="eyebrow">✦ Dampak Nyata</div>
+    <h2 class="mission-h reveal">Setiap rupiah Anda<br><em>mengubah sesuatu di sana</em></h2>
+    <p class="mission-p reveal">Kami bukan sekadar penggalang dana. Kami gerakan pemulihan — tanah, manusia, dan harapan.</p>
+    <div class="dampak-grid">
+      <div class="dcard reveal"><div class="dcard-i">👨‍🌾</div><div class="dcard-t">Petani Hidup Layak</div><div class="dcard-d">60% donasi langsung ke petani sebagai upah dan modal.</div></div>
+      <div class="dcard reveal"><div class="dcard-i">🌲</div><div class="dcard-t">Hutan Terjaga</div><div class="dcard-d">Setiap pohon adalah benteng dari tambang yang mengancam Gunung Guruh.</div></div>
+      <div class="dcard reveal"><div class="dcard-i">📸</div><div class="dcard-t">Laporan Bulanan</div><div class="dcard-d">Foto kebun nyata dikirim ke WhatsApp Anda setiap bulan dari lapangan.</div></div>
+      <div class="dcard reveal"><div class="dcard-i">🤲</div><div class="dcard-t">Jariyah Mengalir</div><div class="dcard-d">Pahala Anda terus mengalir selama pohon itu masih berdiri di bumi.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANGGARAN & TARGET -->
+<section class="anggaran-sec">
+  <div class="awrap">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:36px;">
+      <div class="eyebrow">✦ Transparansi Dana</div>
+      <h2 class="mission-h reveal">Setiap rupiah tercatat,<br><em>setiap langkah dipertanggungjawabkan</em></h2>
+      <p class="mission-p reveal" style="margin-bottom:0;">Kami percaya kejujuran adalah fondasi kepercayaan. Di sinilah kami terbuka sepenuhnya.</p>
+    </div>
+
+    <!-- Notif status yayasan -->
+    <div class="notice-box reveal">
+      <div class="notice-icon">⚖️</div>
+      <div>
+        <div class="notice-title">Catatan Penting — Status Yayasan</div>
+        <div class="notice-body">
+          <strong>Yayasan Bahula Tani Nusantara saat ini dalam proses pendirian legalitas.</strong> Kami beroperasi sebagai komunitas inisiatif dengan pengelolaan amanah dan transparan. Dana donasi dikelola langsung oleh pengelola <strong>Moch Malvie Alkhudriyah</strong> dengan laporan terbuka kepada seluruh donatur. <em>Modal kami yang paling kuat adalah amanah dan transparansi.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alokasi Dana -->
+    <div class="alloc-bar-wrap reveal">
+      <div class="alloc-title">📊 Alokasi Setiap Donasi</div>
+      <div class="alloc-bar">
+        <div class="ab-seg" style="width:60%;background:linear-gradient(90deg,#1a6a35,#2aaa60);" title="Petani & Lahan">60% Petani</div>
+        <div class="ab-seg" style="width:20%;background:linear-gradient(90deg,#8b6000,#c8920a);" title="Operasional Program">20% Program</div>
+        <div class="ab-seg" style="width:12%;background:linear-gradient(90deg,#0a4a6a,#1a7aaa);" title="Cadangan">12% Cadangan</div>
+        <div class="ab-seg" style="width:6%;background:linear-gradient(90deg,#4a0a6a,#7a1aaa);" title="Yayasan">6% Yayasan</div>
+        <div class="ab-seg" style="width:2%;background:linear-gradient(90deg,#3a3a3a,#5a5a5a);" title="Pengelola">2%</div>
+      </div>
+      <div class="alloc-legend">
+        <div class="al-item"><div class="al-dot" style="background:#2aaa60;"></div>60% Langsung ke Petani & Lahan</div>
+        <div class="al-item"><div class="al-dot" style="background:#c8920a;"></div>20% Operasional Program</div>
+        <div class="al-item"><div class="al-dot" style="background:#1a7aaa;"></div>12% Dana Cadangan</div>
+        <div class="al-item"><div class="al-dot" style="background:#7a1aaa;"></div>6% Pendirian & Operasional Yayasan</div>
+        <div class="al-item"><div class="al-dot" style="background:#5a5a5a;"></div>2% Pengelola</div>
+      </div>
+    </div>
+
+    <!-- Yang sudah dikeluarkan pribadi -->
+    <div style="margin-bottom:32px;">
+      <div class="realisasi-title reveal">💪 Modal Perjuangan — Sudah Dikeluarkan Pribadi</div>
+      <div class="realisasi-sub reveal">Sebelum ada donatur, perjuangan ini sudah dimulai dengan modal sendiri. Ini bukan cerita, ini catatan nyata di lapangan.</div>
+      <div class="realisasi-total-chip reveal">🌿 Total Sudah Dikeluarkan: <strong>Rp 75.300.000</strong></div>
+      <div class="realisasi-grid">
+        <div class="ritem reveal"><div class="ritem-num">1</div><div class="ritem-body"><div class="ritem-name">Buka Lahan 3 Hektare</div><div class="ritem-rp">Rp 15.000.000</div><div class="ritem-note">Pembukaan lahan pertanian di kawasan Gunung Guruh</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">2</div><div class="ritem-body"><div class="ritem-name">Tanam Kopi</div><div class="ritem-rp">Rp 10.000.000</div><div class="ritem-note">Bibit & penanaman kopi di lahan 3 ha</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">3</div><div class="ritem-body"><div class="ritem-name">Tanam Kacang Inchi</div><div class="ritem-rp">Rp 25.000.000</div><div class="ritem-note">Bibit & penanaman kacang inchi</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">4</div><div class="ritem-body"><div class="ritem-name">Pembersihan Lahan Tahap 2</div><div class="ritem-rp">Rp 5.000.000</div><div class="ritem-note">Pembersihan & persiapan lahan lanjutan</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">5</div><div class="ritem-body"><div class="ritem-name">Modal Budidaya Ikan</div><div class="ritem-rp">Rp 6.800.000</div><div class="ritem-note">Kolam & bibit ikan sebagai diversifikasi pangan</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">6</div><div class="ritem-body"><div class="ritem-name">Modal Tanaman Sereh</div><div class="ritem-rp">Rp 3.000.000</div><div class="ritem-note">Bibit sereh tumpang sari</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">7</div><div class="ritem-body"><div class="ritem-name">Bibit Pisang (200 pohon)</div><div class="ritem-rp">Rp 3.000.000</div><div class="ritem-note">200 bibit pisang untuk tumpang sari</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">8</div><div class="ritem-body"><div class="ritem-name">Pembersihan Lahan Tahap 3</div><div class="ritem-rp">Rp 5.000.000</div><div class="ritem-note">Pembersihan & penataan lahan tahap akhir</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">9</div><div class="ritem-body"><div class="ritem-name">Pembangunan Saung</div><div class="ritem-rp">Rp 800.000</div><div class="ritem-note">Tempat istirahat & pengawasan kebun</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">10</div><div class="ritem-body"><div class="ritem-name">Herbisida</div><div class="ritem-rp">Rp 500.000</div><div class="ritem-note">Pengendalian gulma di lahan</div></div></div>
+        <div class="ritem reveal"><div class="ritem-num">11</div><div class="ritem-body"><div class="ritem-name">Pupuk</div><div class="ritem-rp">Rp 2.200.000</div><div class="ritem-note">Pupuk organik & anorganik untuk semua tanaman</div></div></div>
+      </div>
+    </div>
+
+    <!-- Target Pengembangan -->
+    <div style="margin-bottom:32px;">
+      <div class="target-sec-title reveal">🎯 Target Pengembangan ke Depan</div>
+      <div class="target-sec-sub reveal">Inilah yang akan kita wujudkan bersama dengan dukungan donatur.</div>
+      <div class="target-grid">
+        <div class="titem reveal"><div class="titem-icon">🌾</div><div><div class="titem-name">Pembebasan Lahan</div><div class="titem-qty">Target 5 Hektare</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">⚙️</div><div><div class="titem-name">Mesin Rumput</div><div class="titem-qty">Efisiensi perawatan lahan</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">🌸</div><div><div class="titem-name">Pohon Cengkeh</div><div class="titem-qty">100 pohon</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">🌰</div><div><div class="titem-name">Pohon Pala</div><div class="titem-qty">100 pohon</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">🥭</div><div><div class="titem-name">Pohon Mangga</div><div class="titem-qty">100 pohon</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">🍋</div><div><div class="titem-name">Pohon Jeruk Lemon</div><div class="titem-qty">100 pohon</div></div></div>
+        <div class="titem reveal"><div class="titem-icon">🌿</div><div><div class="titem-name">Kapulaga</div><div class="titem-qty">5.000 rumpun</div></div></div>
+      </div>
+    </div>
+
+    <!-- Status Yayasan -->
+    <div class="khusus-grid" style="grid-template-columns:1fr;max-width:560px;margin:0 auto 32px;">
+      <div class="kbox kbox-b reveal">
+        <div class="kbox-title">Status Pendirian Yayasan</div>
+        <div class="kbox-body">
+          Yayasan Bahula Tani Nusantara <strong>sedang dalam proses pendirian legalitas.</strong> Anggaran pendirian (notaris, akta, pendaftaran) masuk dalam alokasi dana program.<br><br>
+          <em>Kami punya modal yang lebih kuat dari surat: Amanah dan transparansi.</em>
+        </div>
+        <div class="kbox-amount">📋 Status: Proses Pendirian</div>
+      </div>
+    </div>
+
+    <!-- Progress bar total -->
+    <div class="progress-total-wrap reveal" id="progressWrap">
+      <div class="pt-title">📈 Progress Penggalangan Dana</div>
+      <div class="pt-nums">
+        <span class="pt-terkumpul">Rp 0 <span style="font-size:14px;color:var(--ghost);font-family:'DM Sans',sans-serif;">terkumpul</span></span>
+        <span class="pt-target">Target Awal: Rp 75.000.000</span>
+      </div>
+      <div class="pt-bar"><div class="pt-fill" id="ptFill"></div></div>
+      <div class="pt-note">* Progress akan diperbarui secara berkala setiap donasi masuk dan dikonfirmasi. Hubungi koordinator untuk laporan terkini.</div>
+    </div>
+
+  </div>
+</section>
+<!-- COUNTER DONATUR LIVE -->
+<div class="counter-strip">
+  <div class="counter-inner">
+    <div class="ctr-item"><div class="ctr-val" id="ctrDonatur">0</div><div class="ctr-label">Donatur</div></div>
+    <div class="ctr-item"><div class="ctr-val" id="ctrPohon">0</div><div class="ctr-label">Pohon Ditanam</div></div>
+    <div class="ctr-item"><div class="ctr-val" id="ctrLahan">0</div><div class="ctr-label">Hektare Terjaga</div></div>
+    <div class="ctr-item"><div class="ctr-val" id="ctrPetani">12</div><div class="ctr-label">Petani Terbantu</div></div>
+  </div>
+</div>
+
+<!-- COUNTDOWN TIMER -->
+<div class="timer-strip">
+  <div class="timer-inner">
+    <div class="timer-label">⏳ Target Panen Pertama — Labu Siam Pasir Ipis</div>
+    <div class="timer-boxes">
+      <div class="tbox"><div class="tbox-val" id="tHari">00</div><div class="tbox-lbl">Hari</div></div>
+      <div class="tbox-sep">:</div>
+      <div class="tbox"><div class="tbox-val" id="tJam">00</div><div class="tbox-lbl">Jam</div></div>
+      <div class="tbox-sep">:</div>
+      <div class="tbox"><div class="tbox-val" id="tMenit">00</div><div class="tbox-lbl">Menit</div></div>
+      <div class="tbox-sep">:</div>
+      <div class="tbox"><div class="tbox-val" id="tDetik">00</div><div class="tbox-lbl">Detik</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- KALKULATOR DAMPAK -->
+<section class="kalk-sec">
+  <div class="kalk-wrap">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div class="eyebrow" style="color:var(--mint);">✦ Kalkulator Dampak</div>
+      <h2 class="mission-h reveal" style="color:var(--parch);">Donasi Anda setara dengan<br><em>apa di lapangan?</em></h2>
+    </div>
+    <div class="kalk-card">
+      <div class="kalk-nominal" id="kalkNominal">Rp 100.000</div>
+      <div class="kalk-setara">Geser untuk melihat dampak donasi Anda</div>
+      <div class="kalk-slider-wrap">
+        <input type="range" class="kalk-slider" id="kalkSlider" min="1" max="10" value="2" oninput="updateKalk(this.value)">
+      </div>
+      <div class="kalk-hasil" id="kalkHasil"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERI FOTO KEBUN -->
+<section class="galeri-sec">
+  <div class="galeri-wrap">
+    <div style="text-align:center;">
+      <div class="eyebrow" style="color:var(--mint);">✦ Dari Lapangan</div>
+      <h2 class="mission-h reveal" style="color:var(--parch);">Ini bukan janji —<br><em>ini sudah terjadi</em></h2>
+      <p class="mission-p reveal" style="color:rgba(247,240,227,.4);margin-bottom:0;">Foto nyata dari kebun Pasir Ipis, Gunung Guruh, Sukabumi.</p>
+    </div>
+    <div class="galeri-grid">
+      <div class="gitem"><div class="gitem-img">🌿</div><div class="gitem-overlay"><div class="gitem-cap">Kebun Labu Siam — Pasir Ipis<br><span style="opacity:.6;font-weight:400;">3 hektare, sudah tanam</span></div></div></div>
+      <div class="gitem"><div class="gitem-img">☕</div><div class="gitem-overlay"><div class="gitem-cap">Bibit Kopi Robusta</div></div></div>
+      <div class="gitem"><div class="gitem-img">🌱</div><div class="gitem-overlay"><div class="gitem-cap">Lahan Kacang Inchi</div></div></div>
+      <div class="gitem"><div class="gitem-img">🐟</div><div class="gitem-overlay"><div class="gitem-cap">Kolam Budidaya Ikan</div></div></div>
+      <div class="gitem"><div class="gitem-img">🌄</div><div class="gitem-overlay"><div class="gitem-cap">Gunung Guruh — Hutan yang Dilindungi</div></div></div>
+    </div>
+    <p class="galeri-note">📸 Foto asli dari lapangan segera hadir. Hubungi kami di WA untuk melihat dokumentasi terkini.</p>
+  </div>
+</section>
+
+<!-- TESTIMONI PETANI -->
+<section class="testi-sec">
+  <div class="testi-wrap">
+    <div style="text-align:center;">
+      <div class="eyebrow">✦ Suara dari Ladang</div>
+      <h2 class="mission-h reveal">Mereka yang merasakan<br><em>langsung di tanah ini</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="titem-card reveal">
+        <div class="titem-quote">"Dulu saya khawatir tanah ini akan jadi tambang. Sekarang ada yang peduli, ada yang bantu. Anak saya bisa lihat pohon masih berdiri."</div>
+        <div class="titem-person"><div class="titem-avatar">👨‍🌾</div><div><div class="titem-name">Pak Asep</div><div class="titem-role">Petani, Kampung Pasir Ipis</div></div></div>
+      </div>
+      <div class="titem-card reveal">
+        <div class="titem-quote">"Saya ikut tanam kacang inchi. Baru pertama kali ada yang ajak petani sini untuk usaha sendiri, bukan cuma jadi buruh."</div>
+        <div class="titem-person"><div class="titem-avatar">👩‍🌾</div><div><div class="titem-name">Ibu Sari</div><div class="titem-role">Petani, Lereng Gunung Guruh</div></div></div>
+      </div>
+      <div class="titem-card reveal">
+        <div class="titem-quote">"Kang Malvie itu yang paling gigih. Sudah bertahun-tahun dia jaga gunung ini. Kami lihat sendiri pengorbanannya."</div>
+        <div class="titem-person"><div class="titem-avatar">🧓</div><div><div class="titem-name">Abah Udin</div><div class="titem-role">Tokoh Masyarakat, Sukabumi</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PETA LOKASI -->
+<section class="peta-sec">
+  <div class="peta-wrap">
+    <div style="text-align:center;">
+      <div class="eyebrow">✦ Lokasi Kebun</div>
+      <h2 class="mission-h reveal">Di sinilah donasi Anda<br><em>tumbuh menjadi pohon</em></h2>
+    </div>
+    <div class="peta-container">
+      <div class="peta-map">
+        <div class="peta-map-bg"></div>
+        <div class="peta-pins">
+          <div class="peta-pin" style="left:48%;top:45%;" onclick="pilihLokPin('pasir-ipis')">
+            <div style="position:relative;"><div class="pp-pulse"></div><div class="pp-dot" style="background:var(--amber);border-color:var(--amber);"></div></div>
+            <div class="pp-label">📍 Pasir Ipis ⭐</div>
+          </div>
+          <div class="peta-pin" style="left:52%;top:38%;" onclick="pilihLokPin('cikaret')">
+            <div style="position:relative;"><div class="pp-dot"></div></div>
+            <div class="pp-label">Cikaret</div>
+          </div>
+          <div class="peta-pin" style="left:44%;top:52%;" onclick="pilihLokPin('cibadak')">
+            <div style="position:relative;"><div class="pp-dot"></div></div>
+            <div class="pp-label">Cibadak</div>
+          </div>
+          <div class="peta-pin" style="left:60%;top:35%;" onclick="pilihLokPin('cianjur')">
+            <div style="position:relative;"><div class="pp-dot"></div></div>
+            <div class="pp-label">Cianjur</div>
+          </div>
+          <div class="peta-pin" style="left:35%;top:60%;" onclick="pilihLokPin('lebak')">
+            <div style="position:relative;"><div class="pp-dot"></div></div>
+            <div class="pp-label">Lebak</div>
+          </div>
+        </div>
+      </div>
+      <div class="peta-list">
+        <div class="ploc active" id="pin-pasir-ipis" onclick="pilihLokPin('pasir-ipis')"><div class="ploc-dot" style="background:var(--amber);"></div><div><div class="ploc-name">⭐ Pasir Ipis</div><div class="ploc-kab">Gunung Guruh, Sukabumi · Lokasi Utama</div></div></div>
+        <div class="ploc" id="pin-cikaret" onclick="pilihLokPin('cikaret')"><div class="ploc-dot"></div><div><div class="ploc-name">Cikaret</div><div class="ploc-kab">Sukabumi Kota</div></div></div>
+        <div class="ploc" id="pin-cibadak" onclick="pilihLokPin('cibadak')"><div class="ploc-dot"></div><div><div class="ploc-name">Cibadak</div><div class="ploc-kab">Sukabumi</div></div></div>
+        <div class="ploc" id="pin-cianjur" onclick="pilihLokPin('cianjur')"><div class="ploc-dot"></div><div><div class="ploc-name">Cianjur</div><div class="ploc-kab">Cianjur, Jabar</div></div></div>
+        <div class="ploc" id="pin-lebak" onclick="pilihLokPin('lebak')"><div class="ploc-dot"></div><div><div class="ploc-name">Lebak</div><div class="ploc-kab">Lebak, Banten</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="faq-wrap">
+    <div style="text-align:center;">
+      <div class="eyebrow">✦ Pertanyaan Umum</div>
+      <h2 class="mission-h reveal">Ada yang ingin<br><em>Anda tanyakan?</em></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-q-txt">Apakah donasi saya aman dan sampai ke petani?</div><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">Ya. Setiap donasi yang masuk dikonfirmasi langsung via WhatsApp oleh koordinator Moch Malvie Alkhudriyah. Laporan penggunaan dana dikirim secara berkala ke semua donatur. 60% dana langsung ke tangan petani — bukan melalui pihak ketiga.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-q-txt">Kenapa yayasan belum resmi terdaftar?</div><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">Yayasan Bahula Tani Nusantara sedang dalam proses pendirian legalitas resmi (notaris & pendaftaran). Biaya pendirian juga masuk dalam alokasi program. Sementara itu, kami beroperasi dengan pengelolaan amanah dan transparan — modal terkuat kami adalah kepercayaan, bukan kertas.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-q-txt">Bagaimana saya tahu uang saya digunakan dengan benar?</div><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">Kami mengirimkan laporan foto kebun dari lapangan setiap bulan langsung ke WhatsApp donatur. Semua catatan pengeluaran juga tersedia di bagian Transparansi Dana di halaman ini. Donatur juga bisa menghubungi koordinator kapan saja di nomor 083871666136.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-q-txt">Berapa nominal donasi minimum?</div><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">Minimum Rp 50.000. Tapi sejujurnya, berapapun yang Anda mampu sudah berarti bagi petani Pasir Ipis. "Bersedekahlah walau setengah biji kurma." — HR. Bukhari Muslim.</div></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><div class="faq-q-txt">Apakah saya bisa berkunjung langsung ke kebun?</div><span class="faq-arrow">▼</span></div><div class="faq-a"><div class="faq-a-inner">Tentu! Donatur sangat kami sambut untuk berkunjung dan melihat langsung kebun di Kampung Pasir Ipis, Gunung Guruh, Sukabumi. Hubungi kami via WhatsApp untuk koordinasi kunjungan.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section class="share-sec">
+  <div class="share-title">Sebarkan — <em style="font-family:'Cormorant Garamond',serif;font-style:italic;">satu share bisa jadi satu pohon</em></div>
+  <p class="share-sub">Ajak orang-orang baik di sekitar Anda untuk ikut menjaga bumi ini.</p>
+  <div class="share-btns">
+    <button class="share-btn share-wa" onclick="shareWA()">💬 Share via WhatsApp</button>
+    <button class="share-btn share-ig" onclick="shareIG()">📸 Share ke Instagram</button>
+    <button class="share-btn share-copy" onclick="copyLink()">🔗 Salin Link</button>
+  </div>
+</section>
+
+
+<!-- KALKULATOR ADOPSI POHON -->
+<section style="padding:80px 24px;background:linear-gradient(180deg,rgba(2,2,0,.99),rgba(8,6,0,.98));position:relative;z-index:1;" id="adopsiPohon">
+<div style="max-width:800px;margin:0 auto;">
+  <div class="eyebrow">✦ Kalkulator Investasi</div>
+  <h2 class="mission-h">Pilih Pohonmu,<br><em>Hitung Hasilnya</em></h2>
+  <p class="mission-p">Sistem adopsi pohon — Anda tahu persis apa yang Anda tanam, dan berapa yang akan Anda tuai. Pilih tanaman, tentukan jumlah pohon, dan lihat estimasi bagi hasil Anda.</p>
+
+  <!-- KARTU TANAMAN -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:40px 0 32px;">
+    <!-- Labu Siam -->
+    <div class="pohon-card" data-nama="Labu Siam" data-harga="50000" data-panen="3" data-hasil="500000" data-bagi="50" data-icon="🥬" data-min="10" data-max="100" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🥬</div>
+      <div class="pohon-nama">Labu Siam</div>
+      <div class="pohon-harga">Rp 50rb/pohon</div>
+      <div class="pohon-info">Panen 3 bln · 50/50</div>
+    </div>
+    <!-- Cabe -->
+    <div class="pohon-card" data-nama="Cabe Rawit" data-harga="5000" data-panen="3" data-hasil="75000" data-bagi="50" data-icon="🌶️" data-min="100" data-max="1000" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🌶️</div>
+      <div class="pohon-nama">Cabe Rawit</div>
+      <div class="pohon-harga">Rp 5rb/pohon</div>
+      <div class="pohon-info">Panen 3 bln · 50/50</div>
+    </div>
+    <!-- Durian -->
+    <div class="pohon-card" data-nama="Durian" data-harga="200000" data-panen="60" data-hasil="2500000" data-bagi="60" data-icon="🌳" data-min="1" data-max="5" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🌳</div>
+      <div class="pohon-nama">Durian</div>
+      <div class="pohon-harga">Rp 200rb/pohon</div>
+      <div class="pohon-info">Panen 5 thn · 60/40</div>
+    </div>
+    <!-- Cengkeh -->
+    <div class="pohon-card" data-nama="Cengkeh" data-harga="200000" data-panen="48" data-hasil="3000000" data-bagi="60" data-icon="🌿" data-min="1" data-max="5" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🌿</div>
+      <div class="pohon-nama">Cengkeh</div>
+      <div class="pohon-harga">Rp 200rb/pohon</div>
+      <div class="pohon-info">Panen 4 thn · 60/40</div>
+    </div>
+    <!-- Pala -->
+    <div class="pohon-card" data-nama="Pala" data-harga="200000" data-panen="60" data-hasil="2800000" data-bagi="60" data-icon="🌰" data-min="1" data-max="5" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🌰</div>
+      <div class="pohon-nama">Pala</div>
+      <div class="pohon-harga">Rp 200rb/pohon</div>
+      <div class="pohon-info">Panen 5 thn · 60/40</div>
+    </div>
+    <!-- Sengon -->
+    <div class="pohon-card" data-nama="Sengon" data-harga="15000" data-panen="36" data-hasil="450000" data-bagi="60" data-icon="🌲" data-min="10" data-max="200" onclick="pilihPohon(this)">
+      <div class="pohon-icon">🌲</div>
+      <div class="pohon-nama">Sengon</div>
+      <div class="pohon-harga">Rp 15rb/pohon</div>
+      <div class="pohon-info">Panen 3 thn · 60/40</div>
+    </div>
+    <!-- Kopi -->
+    <div class="pohon-card" data-nama="Kopi Robusta" data-harga="25000" data-panen="24" data-hasil="600000" data-bagi="60" data-icon="☕" data-min="10" data-max="100" onclick="pilihPohon(this)">
+      <div class="pohon-icon">☕</div>
+      <div class="pohon-nama">Kopi</div>
+      <div class="pohon-harga">Rp 25rb/pohon</div>
+      <div class="pohon-info">Panen 2 thn · 60/40</div>
+    </div>
+  </div>
+
+  <!-- HASIL KALKULATOR -->
+  <div id="kalkResult" style="display:none;">
+    <div style="background:rgba(232,184,48,.04);border:1px solid rgba(232,184,48,.2);border-radius:24px;padding:32px 28px;">
+      
+      <!-- Header selected -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;flex-wrap:wrap;">
+        <div style="font-size:48px;" id="krIcon">🥬</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold3);" id="krNama">Labu Siam</div>
+          <div style="font-size:12px;color:var(--ghost);" id="krInfo">Panen 3 bulan · Bagi hasil 50/50</div>
+        </div>
+      </div>
+
+      <!-- Jumlah pohon -->
+      <div style="margin-bottom:24px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold2);margin-bottom:10px;">Jumlah Pohon</div>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <input type="range" id="sliderPohon" min="1" max="100" value="10" oninput="updateKalk()" style="flex:1;min-width:160px;accent-color:var(--gold3);">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button onclick="kurangPohon()" style="width:32px;height:32px;border-radius:50%;background:rgba(232,184,48,.1);border:1px solid var(--border);color:var(--gold3);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold4);min-width:60px;text-align:center;" id="krJumlah">10</div>
+            <button onclick="tambahPohon()" style="width:32px;height:32px;border-radius:50%;background:rgba(232,184,48,.1);border:1px solid var(--border);color:var(--gold3);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+          </div>
+          <div style="font-size:12px;color:var(--ghost);">pohon</div>
+        </div>
+      </div>
+
+      <!-- Ringkasan -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px;">
+        <div style="background:rgba(232,184,48,.05);border:1px solid rgba(232,184,48,.1);border-radius:14px;padding:16px;text-align:center;">
+          <div style="font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Modal Investasi</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold4);" id="krModal">Rp 500rb</div>
+        </div>
+        <div style="background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.15);border-radius:14px;padding:16px;text-align:center;">
+          <div style="font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Bagi Hasil Anda</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#4ade80;" id="krHasil">Rp 2.5jt</div>
+        </div>
+        <div style="background:rgba(96,180,247,.05);border:1px solid rgba(96,180,247,.15);border-radius:14px;padding:16px;text-align:center;">
+          <div style="font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">ROI</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#60b4f7;" id="krROI">400%</div>
+        </div>
+        <div style="background:rgba(232,184,48,.05);border:1px solid rgba(232,184,48,.1);border-radius:14px;padding:16px;text-align:center;">
+          <div style="font-size:10px;color:var(--ghost);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Estimasi Panen</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold4);" id="krPanen">3 bln</div>
+        </div>
+      </div>
+
+      <!-- Detail -->
+      <div style="background:rgba(0,0,0,.3);border-radius:14px;padding:18px 20px;margin-bottom:20px;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(232,184,48,.07);">
+          <span style="color:var(--ghost);">Total hasil panen estimasi</span>
+          <span style="color:var(--text);font-family:'DM Mono',monospace;" id="krTotalPanen">Rp 0</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(232,184,48,.07);">
+          <span style="color:var(--ghost);">Bagian Anda (<span id="krPct">50</span>%)</span>
+          <span style="color:#4ade80;font-family:'DM Mono',monospace;" id="krBagianAnda">Rp 0</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;">
+          <span style="color:var(--ghost);">Bagian Yayasan (<span id="krPctYay">50</span>%)</span>
+          <span style="color:var(--gold3);font-family:'DM Mono',monospace;" id="krBagianYay">Rp 0</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="#donasi" class="hero-btn" style="text-decoration:none;flex:1;text-align:center;">🌱 Adopsi Sekarang</a>
+        <a id="krWA" href="#" target="_blank" style="flex:1;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border:1px solid rgba(232,184,48,.3);border-radius:50px;color:var(--gold2);font-size:14px;font-weight:700;text-decoration:none;">📱 Konfirmasi via WA</a>
+      </div>
+
+      <p style="font-size:10px;color:var(--ghost);text-align:center;margin-top:14px;font-style:italic;">* Estimasi berdasarkan proyeksi kondisi normal. Hasil aktual dapat bervariasi tergantung kondisi cuaca dan pertumbuhan tanaman.</p>
+    </div>
+  </div>
+
+  <!-- Default state -->
+  <div id="kalkDefault" style="text-align:center;padding:32px;color:var(--ghost);font-style:italic;font-size:13px;">
+    👆 Pilih salah satu tanaman di atas untuk mulai menghitung
+  </div>
+
+</div>
+</section>
+
+<style>
+.pohon-card{
+  background:rgba(232,184,48,.03);border:1px solid rgba(232,184,48,.12);
+  border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;
+  transition:all .25s;
+}
+.pohon-card:hover,.pohon-card.active{
+  border-color:rgba(232,184,48,.5);background:rgba(232,184,48,.08);
+  transform:translateY(-3px);box-shadow:0 8px 24px rgba(232,184,48,.15);
+}
+.pohon-icon{font-size:32px;margin-bottom:8px;}
+.pohon-nama{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.pohon-harga{font-size:11px;color:var(--gold2);font-weight:700;}
+.pohon-info{font-size:10px;color:var(--ghost);margin-top:3px;}
+</style>
+
+<script>
+var selectedPohon = null;
+
+function pilihPohon(el){
+  document.querySelectorAll('.pohon-card').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  selectedPohon = {
+    nama: el.dataset.nama,
+    harga: parseInt(el.dataset.harga),
+    panen: parseInt(el.dataset.panen),
+    hasil: parseInt(el.dataset.hasil),
+    bagi: parseInt(el.dataset.bagi),
+    icon: el.dataset.icon,
+    min: parseInt(el.dataset.min),
+    max: parseInt(el.dataset.max)
+  };
+  var slider = document.getElementById('sliderPohon');
+  slider.min = selectedPohon.min;
+  slider.max = selectedPohon.max;
+  slider.value = selectedPohon.min;
+  
+  document.getElementById('krIcon').textContent = selectedPohon.icon;
+  document.getElementById('krNama').textContent = selectedPohon.nama;
+  document.getElementById('krInfo').textContent = 'Panen ±'+selectedPohon.panen+' bulan · Bagi hasil '+selectedPohon.bagi+'/'+(100-selectedPohon.bagi);
+  document.getElementById('krPanen').textContent = selectedPohon.panen >= 12 ? Math.round(selectedPohon.panen/12)+' thn' : selectedPohon.panen+' bln';
+  
+  document.getElementById('kalkDefault').style.display = 'none';
+  document.getElementById('kalkResult').style.display = 'block';
+  updateKalk();
+}
+
+function updateKalk(){
+  if(!selectedPohon) return;
+  var jumlah = parseInt(document.getElementById('sliderPohon').value);
+  document.getElementById('krJumlah').textContent = jumlah;
+  
+  var modal = jumlah * selectedPohon.harga;
+  var totalPanen = jumlah * selectedPohon.hasil;
+  var bagianAnda = totalPanen * selectedPohon.bagi / 100;
+  var bagianYay = totalPanen * (100 - selectedPohon.bagi) / 100;
+  var roi = modal > 0 ? Math.round((bagianAnda - modal) / modal * 100) : 0;
+
+  document.getElementById('krModal').textContent = fRpK(modal);
+  document.getElementById('krHasil').textContent = fRpK(bagianAnda);
+  document.getElementById('krROI').textContent = roi + '%';
+  document.getElementById('krTotalPanen').textContent = fRpK(totalPanen);
+  document.getElementById('krBagianAnda').textContent = fRpK(bagianAnda);
+  document.getElementById('krBagianYay').textContent = fRpK(bagianYay);
+  document.getElementById('krPct').textContent = selectedPohon.bagi;
+  document.getElementById('krPctYay').textContent = 100 - selectedPohon.bagi;
+  
+  var waMsg = encodeURIComponent('Assalamu\'alaikum Kang Malvie, saya ingin mengadopsi '+jumlah+' pohon '+selectedPohon.nama+' senilai '+fRpK(modal)+'. Mohon info lebih lanjut 🌿');
+  document.getElementById('krWA').href = 'https://wa.me/6283871666136?text='+waMsg;
+}
+
+function tambahPohon(){
+  var s = document.getElementById('sliderPohon');
+  if(parseInt(s.value) < parseInt(s.max)) s.value = parseInt(s.value)+1;
+  updateKalk();
+}
+function kurangPohon(){
+  var s = document.getElementById('sliderPohon');
+  if(parseInt(s.value) > parseInt(s.min)) s.value = parseInt(s.value)-1;
+  updateKalk();
+}
+
+function fRpK(n){
+  n=parseInt(n)||0;
+  if(n>=1000000000) return 'Rp '+(n/1000000000).toFixed(1)+'M';
+  if(n>=1000000) return 'Rp '+(n/1000000).toFixed(1)+'jt';
+  if(n>=1000) return 'Rp '+(n/1000).toFixed(0)+'rb';
+  return 'Rp '+n.toLocaleString('id-ID');
+}
+</script>
+
+<!-- POTENSI INVESTASI -->
+<section class="mission-sec" id="potensi" style="background:linear-gradient(180deg,rgba(4,4,2,.99),rgba(8,6,0,.98));">
+  <div class="mission-wrap">
+    <div class="eyebrow">✦ Potensi & Peluang</div>
+    <h2 class="mission-h">Tanah yang Siap<br><em>Menghasilkan</em></h2>
+    <p class="mission-p">Kampung Pasir Ipis bukan sekadar lahan kosong. Di sini tersimpan potensi nyata yang bisa segera menghasilkan pendapatan — menunggu tangan investor yang tepat untuk menggerakannya.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px;">
+
+      <!-- 1 Camping Ground -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">⛺</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">Camping Ground</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Kawasan hutan Gunung Guruh dengan udara segar dan pemandangan alam yang memukau — potensi wisata alam premium yang belum tersentuh. Cocok untuk glamping, outbound, dan retreat alam.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">💰 Potensi pendapatan cepat · Minim modal awal</div>
+      </div>
+
+      <!-- 2 Sawah Produktif -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">🌾</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">7,5 Ha Sawah Produktif</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Lahan sawah aktif seluas 7,5 hektar dengan produktivitas <strong style="color:var(--gold4);">80 kg per 100 m²</strong> — setara 6.000 kg gabah per hektar per panen. Dengan 2 musim tanam, potensi hasil bisa mencapai 90 ton per tahun.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">📊 90 ton/tahun · 2 musim panen · Lahan sudah aktif</div>
+      </div>
+
+      <!-- 3 Pupuk Subsidi -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">🌿</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">50 Ton Pupuk Subsidi</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Akses resmi pupuk bersubsidi sebesar <strong style="color:var(--gold4);">50 ton</strong> — aset strategis yang mampu menekan biaya produksi secara signifikan dan meningkatkan margin keuntungan pertanian.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">⚡ Pangkas biaya produksi · Keunggulan kompetitif</div>
+      </div>
+
+      <!-- 4 Kohe Kambing -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">🐐</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">Pengolahan Kohe Kambing</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Kotoran hewan (kohe) kambing melimpah siap diolah menjadi <strong style="color:var(--gold4);">pupuk organik komersial</strong>. Permintaan pupuk organik terus meningkat — peluang bisnis pupuk yang berkelanjutan dan ramah lingkungan.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">♻️ Zero waste · Permintaan tinggi · Bahan baku gratis</div>
+      </div>
+
+      <!-- 5 Kelompok Tani -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">👨‍🌾</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">Kelompok Tani Sadar</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Pengelolaan <strong style="color:var(--gold4);">Kelompok Tani Sadar</strong> — wadah resmi petani lokal yang terorganisir. Kekuatan SDM kolektif ini memungkinkan skala produksi besar dengan manajemen yang terstruktur.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">👥 SDM terorganisir · Jejaring petani lokal</div>
+      </div>
+
+      <!-- 6 Mesin Traktor -->
+      <div class="transp-card" style="padding:28px 24px;">
+        <div style="font-size:36px;margin-bottom:14px;">🚜</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">Mesin Traktor</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Investasi mesin traktor akan <strong style="color:var(--gold4);">memangkas biaya olah lahan hingga 60%</strong> sekaligus membuka peluang jasa sewa traktor kepada petani sekitar — sumber pendapatan tambahan yang stabil.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">⚙️ Hemat biaya · Potensi jasa sewa · ROI cepat</div>
+      </div>
+
+      <!-- 7 Pengolahan Padi -->
+      <div class="transp-card" style="padding:28px 24px;grid-column:span 1;">
+        <div style="font-size:36px;margin-bottom:14px;">🏭</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:8px;">Pengolahan Hasil Padi Sendiri</div>
+        <p style="font-size:13px;color:var(--dim);line-height:1.8;">Dengan unit pengolahan sendiri — gabah langsung diproses menjadi <strong style="color:var(--gold4);">beras siap jual</strong>. Nilai tambah meningkat 3–4x lipat. Tidak lagi menjual gabah murah ke tengkulak.</p>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(232,184,48,.1);font-size:11px;color:var(--ghost);">📈 Nilai tambah 3–4x · Bebas tengkulak · Branded rice</div>
+      </div>
+
+    </div>
+
+    <!-- CTA Investor -->
+    <div style="margin-top:56px;background:rgba(232,184,48,.05);border:1px solid rgba(232,184,48,.2);border-radius:24px;padding:36px 28px;text-align:center;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,30px);font-weight:700;color:var(--gold4);margin-bottom:12px;">
+        Semua potensi ini nyata.<br><em>Yang kurang hanya satu: Modal.</em>
+      </div>
+      <p style="font-size:13px;color:var(--dim);max-width:520px;margin:0 auto 24px;line-height:1.9;">Bergabunglah sebagai investor atau donatur — dan jadilah bagian dari transformasi nyata Kampung Pasir Ipis. Setiap rupiah yang Anda tanamkan, akan kembali berlipat ganda — dalam bentuk hasil panen, keuntungan usaha, dan keberkahan jariyah.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="#donasi" class="hero-btn" style="text-decoration:none;">💛 Saya Ingin Investasi</a>
+        <a href="https://wa.me/6283871666136?text=Assalamu'alaikum%20Kang%20Malvie%2C%20saya%20tertarik%20dengan%20potensi%20investasi%20di%20Pasir%20Ipis" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid rgba(232,184,48,.3);border-radius:50px;color:var(--gold2);font-size:14px;font-weight:700;text-decoration:none;transition:all .3s;">📱 Diskusi via WA</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIVE DONASI FEED -->
+<section class="live-sec" id="liveFeed">
+  <div class="live-wrap">
+    <div class="live-header">
+      <div>
+        <div class="eyebrow">✦ Donasi Live</div>
+        <h2 class="mission-h" style="margin-bottom:0;">Mereka yang sudah<br><em>bergerak duluan</em></h2>
+      </div>
+      <button class="live-refresh" onclick="loadDonasi()">↻ Refresh</button>
+    </div>
+
+    <!-- Ringkasan -->
+    <div class="live-summary">
+      <div class="ls-box"><div class="ls-val" id="lsTotalDana">Rp 0</div><div class="ls-label">Total Terkumpul</div></div>
+      <div class="ls-box"><div class="ls-val" id="lsJumlahDonatur">0</div><div class="ls-label">Donatur</div></div>
+      <div class="ls-box"><div class="ls-val" id="lsRataRata">Rp 0</div><div class="ls-label">Rata-rata Donasi</div></div>
+    </div>
+
+    <!-- Feed -->
+    <div class="live-feed" id="liveFeedList">
+      <div class="feed-empty">⏳ Memuat data donasi...</div>
+    </div>
+    <div class="live-status" id="liveStatus">
+      Data diambil dari <a class="sheets-link" href="#" id="sheetsLink" target="_blank">Google Sheets publik</a> · Diperbarui otomatis
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERI FOTO ══ -->
+<section class="galeri-sec" id="galeri">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="eyebrow">✦ Dari Lapangan</div>
+    <h2 class="mission-h">Bukti Nyata<br><em>di Pasir Ipis</em></h2>
+    <p class="mission-p">Bukan janji — ini tanah yang sudah kami garap, pohon yang sudah kami tanam, petani yang sudah kami dampingi.</p>
+    <div class="galeri-grid">
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">🌿</span><span>Kebun Kopi Robusta</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">🌾</span><span>Sawah Pasir Ipis</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">🐐</span><span>Peternakan Kambing</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">🌲</span><span>Hutan Gunung Guruh</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">👨‍🌾</span><span>Petani Kelompok Tani Sadar</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+      <div class="galeri-item galeri-placeholder"><span style="font-size:40px;">🌱</span><span>Bibit Siap Tanam</span><span style="font-size:10px;color:var(--ghost);">Upload foto → ganti src</span></div>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--ghost);margin-top:16px;font-style:italic;">📸 Foto asli akan ditampilkan setelah Malvie upload ke GitHub</p>
+  </div>
+</section>
+
+<!-- ══ PETA INTERAKTIF ══ -->
+<section class="peta-sec" id="peta">
+  <div class="peta-wrap">
+    <div class="eyebrow">✦ Lokasi Kebun</div>
+    <h2 class="mission-h">5 Wilayah,<br><em>Satu Misi</em></h2>
+    <p class="mission-p">Ketuk setiap pin untuk melihat detail tanaman dan potensi di setiap lokasi.</p>
+
+    <div class="peta-container">
+      <canvas id="petaCanvas"></canvas>
+      <div class="peta-pins" id="petaPins"></div>
+    </div>
+
+    <div class="peta-legend" id="petaLegend"></div>
+
+    <div class="peta-info" id="petaInfo">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="font-size:32px;" id="piIcon">📍</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);" id="piNama">Lokasi</div>
+          <div style="font-size:11px;color:var(--ghost);" id="piAlamat">Alamat</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;" id="piTanaman"></div>
+      <p style="font-size:12px;color:var(--dim);margin-top:12px;line-height:1.8;" id="piDeskripsi"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FORM INVESTOR ══ -->
+<section class="form-sec" id="formInvestor">
+  <div class="form-wrap">
+    <div class="eyebrow">✦ Bergabung</div>
+    <h2 class="mission-h">Daftar sebagai<br><em>Investor / Donatur</em></h2>
+    <p class="mission-p">Isi form di bawah — tim kami akan menghubungi Anda dalam 1×24 jam untuk konfirmasi dan panduan transfer.</p>
+
+    <div class="inv-form" id="invForm">
+      <div class="form-row2">
+        <div class="form-field">
+          <label class="form-label">Nama Lengkap ⭐</label>
+          <input class="form-input" id="fNama" placeholder="Nama Anda">
+        </div>
+        <div class="form-field">
+          <label class="form-label">No. WhatsApp ⭐</label>
+          <input class="form-input" id="fWA" placeholder="08xxxxxxxxxx" type="tel">
+        </div>
+      </div>
+      <div class="form-row2">
+        <div class="form-field">
+          <label class="form-label">Jenis Partisipasi</label>
+          <select class="form-input form-select" id="fJenis">
+            <option>Investor (Bagi Hasil)</option>
+            <option>Donatur (Jariyah)</option>
+            <option>Keduanya</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Pilih Tanaman</label>
+          <select class="form-input form-select" id="fTanaman">
+            <option>Labu Siam</option>
+            <option>Cabe Rawit</option>
+            <option>Kopi Robusta</option>
+            <option>Cengkeh</option>
+            <option>Pala</option>
+            <option>Durian</option>
+            <option>Sengon</option>
+            <option>Bebas (sesuai rekomendasi)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row2">
+        <div class="form-field">
+          <label class="form-label">Jumlah Pohon</label>
+          <input class="form-input" id="fJumlah" placeholder="Contoh: 10" type="number" min="1">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Estimasi Dana (Rp)</label>
+          <input class="form-input" id="fDana" placeholder="Contoh: 500000" type="number">
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Pesan / Pertanyaan</label>
+        <input class="form-input" id="fPesan" placeholder="Tulis pesan atau pertanyaan Anda (opsional)">
+      </div>
+      <button class="form-submit" onclick="submitInvestor()">🌱 Kirim Pendaftaran</button>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div style="font-size:48px;margin-bottom:12px;">🎉</div>
+      <h3>Jazakallahu Khairan!</h3>
+      <p style="color:var(--dim);font-size:13px;line-height:1.8;">Pendaftaran Anda sudah kami terima. Tim Bahula Tani Nusantara akan menghubungi Anda via WhatsApp dalam 1×24 jam. Barakallahu fiikum.</p>
+      <a id="konfirmasiWA" href="#" target="_blank" style="display:inline-block;margin-top:16px;background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#000;padding:12px 28px;border-radius:50px;font-weight:800;font-size:13px;text-decoration:none;">📱 Konfirmasi via WhatsApp</a>
+      <button onclick="resetForm()" style="display:block;margin:12px auto 0;background:transparent;border:none;color:var(--ghost);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">Daftar lagi</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MODAL SERTIFIKAT ══ -->
+<div class="sert-modal" id="sertModal">
+  <div class="sert-box">
+    <canvas id="sertifikatCanvas" width="900" height="630"></canvas>
+    <div class="sert-btns">
+      <button class="sert-btn sert-btn-dl" onclick="downloadSert()">⬇️ Download Sertifikat</button>
+      <button class="sert-btn sert-btn-cl" onclick="closeSert()">✕ Tutup</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ PETA INTERAKTIF ══
+var lokasiData = [
+  {
+    id:'pasipipis', nama:'Pasir Ipis', alamat:'Gunung Guruh, Sukabumi, Jawa Barat',
+    icon:'⭐', px:38, py:52,
+    tanaman:['Kopi Robusta','Kacang Inchi','Labu Siam','Cengkeh','Pala','Pisang'],
+    deskripsi:'Lokasi utama & pusat kegiatan Bahula Tani Nusantara. Kawasan hutan konservasi seluas ±50 ha dengan potensi camping ground dan agrowisata premium.'
+  },
+  {
+    id:'cikaret', nama:'Cikaret', alamat:'Sukabumi, Jawa Barat',
+    icon:'🌿', px:55, py:44,
+    tanaman:['Cengkeh','Pala','Kopi','Durian'],
+    deskripsi:'Lokasi pengembangan tanaman keras jangka panjang. Kondisi tanah subur cocok untuk cengkeh dan pala bernilai tinggi.'
+  },
+  {
+    id:'cibadak', nama:'Cibadak', alamat:'Sukabumi, Jawa Barat',
+    icon:'🌾', px:48, py:63,
+    tanaman:['Padi','Labu Siam','Sayuran'],
+    deskripsi:'Sentra pertanian padi produktif. Lahan sawah 7,5 ha dengan hasil 80 kg/100m² per musim.'
+  },
+  {
+    id:'cianjur', nama:'Cianjur', alamat:'Jawa Barat',
+    icon:'☕', px:35, py:38,
+    tanaman:['Kopi Arabika','Sengon','Mahoni'],
+    deskripsi:'Dataran tinggi Cianjur cocok untuk kopi arabika premium dan kayu sengon cepat panen.'
+  },
+  {
+    id:'lebak', nama:'Lebak', alamat:'Banten',
+    icon:'🌲', px:22, py:45,
+    tanaman:['Sengon','Akasia','Jati','Mahoni'],
+    deskripsi:'Lokasi pengembangan kehutanan sosial. Tanaman kayu cepat tumbuh untuk kebutuhan industri lokal.'
+  }
+];
+
+function initPeta(){
+  var canvas = document.getElementById('petaCanvas');
+  var ctx = canvas.getContext('2d');
+  var W = canvas.offsetWidth, H = canvas.offsetHeight;
+  canvas.width = W; canvas.height = H;
+
+  // Background gradient map
+  var bg = ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#0a1a08'); bg.addColorStop(0.5,'#0d1a0a'); bg.addColorStop(1,'#081408');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(232,184,48,.04)'; ctx.lineWidth = 1;
+  for(var x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(var y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Terrain blobs
+  var blobs = [{x:.3,y:.5,r:.18,c:'rgba(20,60,15,.4)'},{x:.6,y:.35,r:.15,c:'rgba(15,50,10,.35)'},{x:.45,y:.7,r:.2,c:'rgba(10,40,8,.3)'}];
+  blobs.forEach(function(b){
+    var g=ctx.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,b.r*W);
+    g.addColorStop(0,b.c); g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  });
+
+  // Labels
+  ctx.fillStyle='rgba(232,184,48,.08)'; ctx.font='bold 11px DM Sans';
+  ctx.fillText('JAWA BARAT',W*.15,H*.85);
+  ctx.fillText('BANTEN',W*.08,H*.6);
+
+  // Render pins
+  var pinsEl = document.getElementById('petaPins');
+  pinsEl.innerHTML = '';
+  lokasiData.forEach(function(loc){
+    var pin = document.createElement('div');
+    pin.className = 'peta-pin';
+    pin.style.left = loc.px+'%';
+    pin.style.top = loc.py+'%';
+    pin.innerHTML = '<div class="pin-label">'+loc.nama+'</div><div class="pin-dot"><div class="pin-pulse"></div></div>';
+    pin.onclick = function(){ showPetaInfo(loc); };
+    pinsEl.appendChild(pin);
+  });
+
+  // Legend
+  var leg = document.getElementById('petaLegend');
+  leg.innerHTML = lokasiData.map(function(l){
+    return '<div class="legend-item" id="leg-'+l.id+'" onclick="showPetaInfo('+JSON.stringify(l).replace(/"/g,"'")+')" >'+
+      '<div class="legend-dot"></div>'+l.icon+' '+l.nama+'</div>';
+  }).join('');
+}
+
+function showPetaInfo(loc){
+  document.querySelectorAll('.legend-item').forEach(function(el){el.classList.remove('active');});
+  var legEl = document.getElementById('leg-'+loc.id);
+  if(legEl) legEl.classList.add('active');
+  document.getElementById('piIcon').textContent = loc.icon;
+  document.getElementById('piNama').textContent = loc.nama;
+  document.getElementById('piAlamat').textContent = loc.alamat;
+  document.getElementById('piDeskripsi').textContent = loc.deskripsi;
+  document.getElementById('piTanaman').innerHTML = loc.tanaman.map(function(t){
+    return '<span style="background:rgba(232,184,48,.08);border:1px solid rgba(232,184,48,.2);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--gold3);">🌱 '+t+'</span>';
+  }).join('');
+  var info = document.getElementById('petaInfo');
+  info.classList.add('show'); info.style.display='block';
+}
+
+// ══ FORM INVESTOR ══
+function submitInvestor(){
+  var nama=document.getElementById('fNama').value.trim();
+  var wa=document.getElementById('fWA').value.trim();
+  var jenis=document.getElementById('fJenis').value;
+  var tanaman=document.getElementById('fTanaman').value;
+  var jumlah=document.getElementById('fJumlah').value||'?';
+  var dana=document.getElementById('fDana').value;
+  var pesan=document.getElementById('fPesan').value.trim();
+
+  if(!nama||!wa){alert('Nama dan WhatsApp wajib diisi!');return;}
+
+  var msg = 'Assalamu\'alaikum Kang Malvie 🌿\n\n*PENDAFTARAN INVESTOR/DONATUR*\n\n'+
+    '👤 Nama: '+nama+'\n📱 WA: '+wa+'\n🎯 Jenis: '+jenis+'\n🌱 Tanaman: '+tanaman+'\n🌳 Jumlah: '+jumlah+' pohon\n'+
+    (dana?'💰 Dana: Rp '+parseInt(dana).toLocaleString('id-ID')+'\n':'')+
+    (pesan?'💬 Pesan: '+pesan+'\n':'')+
+    '\nTerima kasih 🙏';
+
+  document.getElementById('konfirmasiWA').href='https://wa.me/6283871666136?text='+encodeURIComponent(msg);
+  document.getElementById('invForm').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+
+  // Auto generate certificate
+  setTimeout(function(){
+    buatSertifikat(nama, tanaman, jumlah);
+  }, 1000);
+}
+
+function resetForm(){
+  document.getElementById('invForm').style.display='block';
+  document.getElementById('formSuccess').style.display='none';
+  document.getElementById('fNama').value='';
+  document.getElementById('fWA').value='';
+  document.getElementById('fJumlah').value='';
+  document.getElementById('fDana').value='';
+  document.getElementById('fPesan').value='';
+}
+
+// ══ SERTIFIKAT DIGITAL ══
+function buatSertifikat(nama, tanaman, jumlah){
+  var modal = document.getElementById('sertModal');
+  var canvas = document.getElementById('sertifikatCanvas');
+  var ctx = canvas.getContext('2d');
+  var W=900, H=560;
+  canvas.width=W; canvas.height=H;
+
+  // ── Background putih bersih ──
+  ctx.fillStyle='#fdfaf4';
+  ctx.fillRect(0,0,W,H);
+
+  // ── Accent bar atas ──
+  var topBar = ctx.createLinearGradient(0,0,W,0);
+  topBar.addColorStop(0,'#a0700a');
+  topBar.addColorStop(0.5,'#e8b830');
+  topBar.addColorStop(1,'#a0700a');
+  ctx.fillStyle=topBar;
+  ctx.fillRect(0,0,W,5);
+
+  // ── Accent bar bawah ──
+  ctx.fillStyle=topBar;
+  ctx.fillRect(0,H-5,W,5);
+
+  // ── Border tipis luar ──
+  ctx.strokeStyle='rgba(160,112,10,.15)';
+  ctx.lineWidth=1;
+  ctx.strokeRect(18,18,W-36,H-36);
+
+  // ── Ornamen sudut ── 
+  var corners=[[24,24],[W-24,24],[24,H-24],[W-24,H-24]];
+  var signs=[[1,1],[-1,1],[1,-1],[-1,-1]];
+  corners.forEach(function(c,i){
+    var s=signs[i];
+    ctx.strokeStyle='rgba(160,112,10,.3)';
+    ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(c[0],c[1]+s[1]*18);ctx.lineTo(c[0],c[1]);ctx.lineTo(c[0]+s[0]*18,c[1]);ctx.stroke();
+  });
+
+  // ── Logo area kiri ──
+  ctx.fillStyle='rgba(160,112,10,.08)';
+  ctx.beginPath();ctx.arc(80,H/2,42,0,Math.PI*2);ctx.fill();
+  ctx.font='32px serif'; ctx.textAlign='center';
+  ctx.fillText('🌿',80,H/2+11);
+
+  // ── Garis vertikal pemisah ──
+  var lineGrad=ctx.createLinearGradient(0,60,0,H-60);
+  lineGrad.addColorStop(0,'transparent');
+  lineGrad.addColorStop(0.3,'rgba(160,112,10,.3)');
+  lineGrad.addColorStop(0.7,'rgba(160,112,10,.3)');
+  lineGrad.addColorStop(1,'transparent');
+  ctx.strokeStyle=lineGrad;
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(138,60);ctx.lineTo(138,H-60);ctx.stroke();
+
+  // ── Konten kanan ──
+  ctx.textAlign='left';
+  var x=162, yStart=100;
+
+  // Label atas
+  ctx.font='700 10px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(160,112,10,.5)';
+  ctx.letterSpacing='3px';
+  ctx.fillText('SERTIFIKAT ADOPSI POHON',x,yStart);
+
+  // Garis pendek emas
+  var g2=ctx.createLinearGradient(x,0,x+200,0);
+  g2.addColorStop(0,'#e8b830'); g2.addColorStop(1,'transparent');
+  ctx.strokeStyle=g2; ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(x,yStart+10);ctx.lineTo(x+180,yStart+10);ctx.stroke();
+
+  // Nama
+  ctx.font='italic 700 38px Cormorant Garamond,Georgia,serif';
+  ctx.fillStyle='#1a1200';
+  ctx.fillText(nama||'Nama Investor',x,yStart+60);
+
+  // Deskripsi adopsi
+  ctx.font='400 14px DM Sans,sans-serif';
+  ctx.fillStyle='#6b5a2a';
+  ctx.fillText('telah mengadopsi',x,yStart+92);
+
+  // Tanaman & jumlah
+  ctx.font='700 22px Cormorant Garamond,Georgia,serif';
+  ctx.fillStyle='#8b6914';
+  ctx.fillText((jumlah||'?')+' Pohon '+tanaman,x,yStart+122);
+
+  // Lokasi
+  ctx.font='400 12px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(107,90,42,.6)';
+  ctx.fillText('📍 Pasir Ipis, Gunung Guruh, Sukabumi, Jawa Barat',x,yStart+148);
+
+  // Garis pemisah
+  ctx.strokeStyle='rgba(160,112,10,.12)';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(x,yStart+168);ctx.lineTo(W-40,yStart+168);ctx.stroke();
+
+  // Tanggal & pengelola
+  var now=new Date();
+  var tgl=now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  ctx.font='400 11px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(107,90,42,.5)';
+  ctx.fillText(tgl,x,yStart+192);
+
+  // Tanda tangan area
+  ctx.font='600 12px DM Sans,sans-serif';
+  ctx.fillStyle='#4a3800';
+  ctx.fillText('Moch. Malvie Alkhudriyah',W-220,yStart+192);
+  ctx.font='400 10px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(107,90,42,.5)';
+  ctx.fillText('Pengelola · Bahula Tani Nusantara',W-220,yStart+208);
+
+  // Garis ttd
+  ctx.strokeStyle='rgba(160,112,10,.2)';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(W-220,yStart+182);ctx.lineTo(W-42,yStart+182);ctx.stroke();
+
+  // Bagi hasil note
+  ctx.font='400 10px DM Sans,sans-serif';
+  ctx.fillStyle='rgba(107,90,42,.4)';
+  ctx.fillText('Bagi hasil panen: 50–60% untuk investor · Sistem amanah & transparan',x,yStart+224);
+
+  // ── Watermark subtle ──
+  ctx.save();
+  ctx.globalAlpha=0.03;
+  ctx.font='bold 160px Cormorant Garamond,serif';
+  ctx.fillStyle='#8b6914';
+  ctx.textAlign='center';
+  ctx.fillText('🌿',W/2+60,H/2+60);
+  ctx.restore();
+
+  modal.classList.add('show');
+}
+function downloadSert(){
+  var canvas=document.getElementById('sertifikatCanvas');
+  var a=document.createElement('a');
+  a.download='Sertifikat-Adopsi-Pohon-BahulaT ani.png';
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+}
+function closeSert(){ document.getElementById('sertModal').classList.remove('show'); }
+
+// Init peta on load
+window.addEventListener('load', function(){
+  setTimeout(initPeta, 300);
+});
+window.addEventListener('resize', function(){
+  setTimeout(initPeta, 100);
+});
+</script>
+
+<footer>
+  <div class="ft-name">Yayasan Bahula Tani Nusantara</div>
+  <div class="ft-addr">Kampung Pasir Ipis · Gunung Guruh · Sukabumi · Jawa Barat</div>
+  <div class="ft-contact">📱 083871666136 &nbsp;·&nbsp; 🏦 Mandiri 1820016298168 (HUDRI)</div>
+  <div class="ft-arab">جاگا ڠارِيکسا لِيۏوڠ 🌿</div>
+  <div style="margin-top:20px;opacity:0.01;" id="adminTrigger">
+    <span onclick="adminTap()" style="cursor:pointer;font-size:10px;color:transparent;user-select:none;padding:10px 20px;display:inline-block;">⚙</span>
+  </div>
+</footer>
+
+<!-- ADMIN ACCESS MODAL -->
+<div id="adminModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99999;align-items:center;justify-content:center;">
+  <div style="width:min(340px,90vw);background:#07070a;border:1px solid rgba(232,184,48,.3);border-radius:20px;padding:32px 28px;text-align:center;animation:fadeInUp .4s ease;">
+    <div style="font-size:36px;margin-bottom:12px;">🔐</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold3);margin-bottom:4px;">Portal Admin</div>
+    <div style="font-size:11px;color:var(--ghost);margin-bottom:24px;text-transform:uppercase;letter-spacing:1.5px;">Bahula Tani Nusantara</div>
+    
+    <input type="password" id="adminPassInput" placeholder="Password admin" 
+      style="width:100%;padding:12px 16px;border:1px solid rgba(232,184,48,.2);border-radius:12px;background:rgba(232,184,48,.03);color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;text-align:center;letter-spacing:3px;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')checkAdminPass()">
+    
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+      <button onclick="goAdmin('cashflow.html')" style="width:100%;background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#000;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;">📊 Dashboard Cashflow</button>
+      <button onclick="goAdmin('admin-donasi.html')" style="width:100%;background:rgba(232,184,48,.08);border:1px solid rgba(232,184,48,.2);color:var(--gold3);border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🌿 Panel Admin Donasi</button>
+      <button onclick="closeAdminModal()" style="background:transparent;border:none;color:var(--ghost);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;padding:6px;">✕ Tutup</button>
+    </div>
+    <div id="adminErr" style="display:none;font-size:11px;color:#f87171;margin-top:8px;">Password salah. Coba lagi.</div>
+  </div>
+</div>
+
+<style>
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+</style>
+
+<script>
+var adminTapCount = 0;
+var adminTapTimer = null;
+
+function adminTap(){
+  adminTapCount++;
+  clearTimeout(adminTapTimer);
+  if(adminTapCount >= 5){
+    adminTapCount = 0;
+    openAdminModal();
+  } else {
+    adminTapTimer = setTimeout(function(){ adminTapCount = 0; }, 2000);
+  }
+}
+
+function openAdminModal(){
+  var m = document.getElementById('adminModal');
+  m.style.display = 'flex';
+  setTimeout(function(){ document.getElementById('adminPassInput').focus(); }, 100);
+}
+
+function closeAdminModal(){
+  document.getElementById('adminModal').style.display = 'none';
+  document.getElementById('adminPassInput').value = '';
+  document.getElementById('adminErr').style.display = 'none';
+}
+
+function goAdmin(page){
+  var pass = document.getElementById('adminPassInput').value;
+  if(pass !== 'bahula2026'){
+    document.getElementById('adminErr').style.display = 'block';
+    document.getElementById('adminPassInput').value = '';
+    return;
+  }
+  window.location.href = page;
+}
+
+// Close on backdrop click
+document.getElementById('adminModal').addEventListener('click', function(e){
+  if(e.target === this) closeAdminModal();
+});
+</script>
+</div><!-- /mainScreen -->
+
+<!-- SERTIFIKAT -->
+<div class="sertif-screen" id="sertifScreen">
+  <div class="sertif-wrap">
+    <div class="stbar">
+      <div class="stbar-title">📜 Sertifikat Donasi Pohon</div>
+      <div class="stbar-btns">
+        <button class="stbtn stbtn-back" onclick="closeSertif()">← Kembali</button>
+        <button class="stbtn stbtn-dl" id="btnDL" onclick="downloadSertif()">⬇️ Download PNG</button>
+        <button class="stbtn stbtn-print" onclick="window.print()">🖨️ Cetak PDF</button>
+      </div>
+    </div>
+    <div id="dlStatus">⏳ Sedang membuat gambar...</div>
+
+    <div class="sdoc" id="sertifDoc">
+      <div class="sdoc-border"></div>
+      <div class="sdoc-head">
+        <div class="sdh-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+        <div class="sdh-seal">🌳</div>
+        <div class="sdh-org">YAYASAN BAHULA TANI NUSANTARA</div>
+        <div class="sdh-sub">Kampung Pasir Ipis · Gunung Guruh · Sukabumi · Jawa Barat</div>
+      </div>
+      <div class="sdoc-body">
+        <div class="s-rule"></div>
+        <div class="s-judul"><div class="s-judul-txt">Sertifikat Donasi Pohon</div><div class="s-no" id="sNo">No. BTN-DON-XXXX</div></div>
+        <div class="s-rule"></div>
+        <div class="s-kepada">
+          <div class="s-kp-label">Diberikan dengan penuh syukur kepada</div>
+          <div class="s-kp-name" id="sNama">—</div>
+          <div class="s-kp-kota" id="sKota">—</div>
+        </div>
+        <div class="s-detail">
+          <div class="s-row"><span class="s-lbl">Nilai Donasi</span><span class="s-sep">:</span><span class="s-val" id="sNominal">—</span></div>
+          <div class="s-row"><span class="s-lbl">Tanggal</span><span class="s-sep">:</span><span class="s-val" id="sTanggal">—</span></div>
+          <div class="s-row"><span class="s-lbl">Program</span><span class="s-sep">:</span><span class="s-val" id="sTanamanS">Pertanian & Konservasi Hutan</span></div>
+          <div class="s-row"><span class="s-lbl">Lokasi</span><span class="s-sep">:</span><span class="s-val" id="sLokasiS">Gunung Guruh, Sukabumi</span></div>
+          <div class="s-row" id="sPesanRow"><span class="s-lbl">Pesan/Doa</span><span class="s-sep">:</span><span class="s-val" id="sPesan">—</span></div>
+        </div>
+        <div class="s-ayat">
+          <div class="s-ayat-arab">مَن زَرَعَ شَجَرَةً فَصَبَرَ عَلَيْهَا حَتَّى تُثْمِرَ كَانَ لَهُ بِكُلِّ شَيْءٍ يُؤْكَلُ مِنْهَا صَدَقَةٌ</div>
+          <div class="s-ayat-lat">"Barangsiapa menanam pohon lalu bersabar merawatnya hingga berbuah, maka tiap sesuatu yang dimakan darinya menjadi sedekah baginya."</div>
+          <div class="s-ayat-src">— HR. Ahmad</div>
+        </div>
+        <div class="s-ttd">
+          <div class="ttd-col">
+            <div class="ttd-role">Pengelola</div>
+            <div class="ttd-place" id="sTtdLoc">Sukabumi, —</div>
+            <div class="ttd-sig">Malvie Alkhudriyah</div>
+            <div class="ttd-meterai">
+              <div class="meterai" id="sertifMeterai" onclick="stampMeterai()" title="Klik tempel meterai">
+                <div class="meterai-txt">Rp.<br>10.000<br>METERAI</div>
+              </div>
+            </div>
+            <div class="ttd-bar"><div class="ttd-name-txt">MOCH MALVIE ALKHUDRIYAH</div><div class="ttd-job">Pengelola — Yayasan Bahula Tani Nusantara</div></div>
+          </div>
+          <div class="ttd-col">
+            <div class="ttd-role">Donatur</div>
+            <div class="ttd-place" id="sTtdLoc2">—</div>
+            <div class="ttd-blank"><span>Tanda Tangan Donatur</span></div>
+            <div style="height:28px;"></div>
+            <div class="ttd-bar"><div class="ttd-name-txt" id="sTtdNama">—</div><div class="ttd-job">Donatur</div></div>
+          </div>
+        </div>
+        <div class="s-footer">
+          Sertifikat ini adalah bukti nyata sedekah jariyah Anda.<br>
+          Semoga setiap daun yang tumbuh menjadi saksi kebaikan di hadapan Allah ﷻ<br>
+          <em>Kembali ke Akar · Menuju Masa Depan · Bahula Tani Nusantara 2026</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ LIVE DONASI FEED — GOOGLE SHEETS ══
+// Ganti SHEET_ID di bawah dengan ID Google Sheets Malvie setelah dibuat
+var SHEET_ID = '1iWQyCAfHBPSJpkmd1sEkpIjlUqQCqEv5-aMxiKaRFTw';
+var SHEET_NAME = 'Donasi';
+var SHEETS_URL = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+SHEET_NAME;
+
+function loadDonasi(){
+  var list = document.getElementById('liveFeedList');
+  var status = document.getElementById('liveStatus');
+  
+  // Jika belum setup, tampilkan panduan
+  if(SHEET_ID === 'GANTI_DENGAN_SHEET_ID_ANDA'){
+    tampilDemoData();
+    return;
+  }
+  
+  list.innerHTML = '<div class="feed-empty">⏳ Memuat data...</div>';
+  
+  var script = document.createElement('script');
+  script.src = SHEETS_URL + '&callback=handleSheetData&t=' + Date.now();
+  script.onerror = function(){
+    list.innerHTML = '<div class="feed-empty">❌ Gagal memuat. Cek koneksi atau setting Sheets.</div>';
+  };
+  document.head.appendChild(script);
+  
+  // Update link
+  var link = document.getElementById('sheetsLink');
+  if(link) link.href = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID;
+}
+
+function handleSheetData(data){
+  try{
+    var rows = data.table.rows;
+    if(!rows || rows.length === 0){
+      document.getElementById('liveFeedList').innerHTML = '<div class="feed-empty">🌱 Belum ada donasi masuk. Jadilah yang pertama!</div>';
+      updateSummary([]);
+      return;
+    }
+    
+    var donasi = [];
+    rows.forEach(function(row){
+      if(!row.c || !row.c[0]) return;
+      donasi.push({
+        waktu:   row.c[0] ? row.c[0].v : '-',
+        nama:    row.c[1] ? row.c[1].v : 'Anonim',
+        nominal: row.c[2] ? parseInt(row.c[2].v) : 0,
+        tanaman: row.c[3] ? row.c[3].v : '',
+        lokasi:  row.c[4] ? row.c[4].v : '',
+        pesan:   row.c[5] ? row.c[5].v : ''
+      });
+    });
+    
+    // Sort terbaru dulu
+    donasi.sort(function(a,b){ return new Date(b.waktu) - new Date(a.waktu); });
+    
+    renderFeed(donasi);
+    updateSummary(donasi);
+    
+  } catch(e){
+    document.getElementById('liveFeedList').innerHTML = '<div class="feed-empty">⚠️ Format data tidak sesuai. Cek kolom Sheets.</div>';
+  }
+}
+
+var EMOJI_LIST = ['🌿','🌳','☕','🌱','🌸','🍃','🌾','🌻','🌺','✨'];
+function randomEmoji(nama){
+  var idx = (nama.charCodeAt(0)||0) % EMOJI_LIST.length;
+  return EMOJI_LIST[idx];
+}
+
+function formatWaktu(raw){
+  try{
+    var d = new Date(raw);
+    if(isNaN(d)) return raw||'-';
+    var now = new Date();
+    var diff = Math.floor((now-d)/60000);
+    if(diff < 1) return 'Baru saja';
+    if(diff < 60) return diff+' menit lalu';
+    if(diff < 1440) return Math.floor(diff/60)+' jam lalu';
+    return d.toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+  } catch(e){ return raw||'-'; }
+}
+
+function formatRp(n){
+  if(n>=1000000) return 'Rp '+(n/1000000).toFixed(n%1000000===0?0:1)+'jt';
+  if(n>=1000) return 'Rp '+(n/1000).toFixed(0)+'rb';
+  return 'Rp '+n.toLocaleString('id-ID');
+}
+
+function renderFeed(donasi){
+  var html = donasi.map(function(d,i){
+    var keterangan = [d.tanaman, d.lokasi].filter(Boolean).join(' · ');
+    return '<div class="feed-item" style="animation-delay:'+(i*0.07)+'s">'+
+      '<div class="feed-avatar">'+randomEmoji(d.nama)+'</div>'+
+      '<div class="feed-body">'+
+        '<div class="feed-name">'+escHtml(d.nama)+'</div>'+
+        '<div class="feed-tanaman">'+(keterangan||'Donasi Umum')+(d.pesan?' · "'+escHtml(d.pesan.slice(0,40))+(d.pesan.length>40?'...':'')+'"':'')+'</div>'+
+      '</div>'+
+      '<div class="feed-right">'+
+        '<div class="feed-nominal">'+formatRp(d.nominal)+'</div>'+
+        '<div class="feed-waktu">'+formatWaktu(d.waktu)+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  document.getElementById('liveFeedList').innerHTML = html || '<div class="feed-empty">🌱 Belum ada donasi.</div>';
+}
+
+function updateSummary(donasi){
+  var total = donasi.reduce(function(s,d){return s+d.nominal;},0);
+  var rata = donasi.length ? Math.round(total/donasi.length) : 0;
+  document.getElementById('lsTotalDana').textContent = donasi.length ? formatRp(total) : 'Rp 0';
+  document.getElementById('lsJumlahDonatur').textContent = donasi.length;
+  document.getElementById('lsRataRata').textContent = donasi.length ? formatRp(rata) : 'Rp 0';
+  // Sync counter
+  if(document.getElementById('ctrDonatur')) document.getElementById('ctrDonatur').textContent = donasi.length||'27';
+}
+
+function escHtml(t){
+  return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Demo data saat Sheet belum setup
+function tampilDemoData(){
+  var demo = [
+    {waktu:new Date(Date.now()-5*60000).toISOString(),nama:'Budi Santoso',nominal:500000,tanaman:'Kopi Robusta',lokasi:'Pasir Ipis',pesan:'Semoga berkah'},
+    {waktu:new Date(Date.now()-32*60000).toISOString(),nama:'Siti Rahayu',nominal:100000,tanaman:'Kapulaga',lokasi:'Pasir Ipis',pesan:''},
+    {waktu:new Date(Date.now()-2*3600000).toISOString(),nama:'Ahmad Fauzi',nominal:1000000,tanaman:'Pohon Cengkeh',lokasi:'Cikaret',pesan:'Jariyah untuk orang tua'},
+    {waktu:new Date(Date.now()-5*3600000).toISOString(),nama:'Dewi Lestari',nominal:200000,tanaman:'Jeruk Lemon',lokasi:'',pesan:''},
+    {waktu:new Date(Date.now()-24*3600000).toISOString(),nama:'Hendra W.',nominal:50000,tanaman:'',lokasi:'',pesan:'Semangat Kang Malvie'},
+  ];
+  renderFeed(demo);
+  updateSummary(demo);
+  document.getElementById('liveStatus').innerHTML = 
+    '⚠️ <strong style="color:var(--gold2)">Mode Demo</strong> — Hubungkan Google Sheets untuk data nyata · '+
+    '<a class="sheets-link" href="#panduan-sheets" onclick="showPanduanSheets()">Lihat Panduan Setup</a>';
+}
+
+// Auto load on section visible
+var feedObs = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){ loadDonasi(); feedObs.unobserve(e.target); }
+  });
+},{threshold:0.2});
+var feedEl = document.getElementById('liveFeed');
+if(feedEl) feedObs.observe(feedEl);
+
+// Auto refresh tiap 2 menit
+setInterval(function(){ 
+  if(SHEET_ID !== 'GANTI_DENGAN_SHEET_ID_ANDA') loadDonasi(); 
+}, 120000);
+
+// ══ PARTIKEL EMAS HIDUP ══
+(function(){
+  var canvas=document.getElementById('particleCanvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W,H,particles=[];
+  
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  
+  function rand(min,max){return Math.random()*(max-min)+min;}
+  
+  function Particle(){
+    this.reset=function(){
+      this.x=rand(0,W);
+      this.y=rand(0,H);
+      this.r=rand(.6,2.5);
+      this.vx=rand(-.3,.3);
+      this.vy=rand(-1.2,-.2);
+      this.alpha=rand(.2,.8);
+      this.da=rand(-.003,.003);
+      this.color=Math.random()<.7?'rgba(232,184,48,':'rgba(255,240,140,';
+      this.life=rand(80,200);
+      this.age=0;
+    };
+    this.reset();
+    this.y=rand(0,H);
+  }
+  
+  for(var i=0;i<80;i++){particles.push(new Particle());}
+  
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<particles.length;i++){
+      var p=particles[i];
+      p.x+=p.vx;p.y+=p.vy;p.alpha+=p.da;p.age++;
+      if(p.age>p.life||p.y<-10||p.alpha<=0)p.reset();
+      var a=Math.max(0,Math.min(.8,p.alpha*(1-p.age/p.life)));
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color+a+')';
+      ctx.fill();
+      // Glow
+      if(p.r>1.5){
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2);
+        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+        g.addColorStop(0,p.color+(a*.4)+')');
+        g.addColorStop(1,p.color+'0)');
+        ctx.fillStyle=g;ctx.fill();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+  
+  // Mouse sparkle
+  document.addEventListener('mousemove',function(e){
+    if(Math.random()>.85){
+      var p=new Particle();
+      p.x=e.clientX;p.y=e.clientY;
+      p.r=rand(1,3);p.vy=rand(-2,-.5);p.vx=rand(-.8,.8);
+      p.life=40;p.alpha=.9;
+      particles.push(p);
+      if(particles.length>120)particles.shift();
+    }
+  });
+})();
+
+
+let state={nama:'',wa:'',pesan:'',nominal:0,tanaman:'',lokasi:''};
+
+function pilihPaket(n,el){state.nominal=n;document.querySelectorAll('.pil').forEach(e=>e.classList.remove('on'));el.classList.add('on');document.getElementById('nominalFree').value='';}
+function setFree(v){state.nominal=parseInt(v)||0;document.querySelectorAll('.pil').forEach(e=>e.classList.remove('on'));}
+function toggleOpsi(){document.getElementById('opsiBtn').classList.toggle('open');document.getElementById('opsiPanel').classList.toggle('open');}
+function salinRek(){navigator.clipboard&&navigator.clipboard.writeText('1820016298168').then(()=>showToast('Nomor rekening tersalin!'));}
+function salinEwalet(n,num){navigator.clipboard&&navigator.clipboard.writeText(num).then(()=>showToast('Nomor '+n+' ('+num+') tersalin!'));}
+
+function getData(){
+  state.nama=document.getElementById('dNama').value.trim();
+  state.wa=document.getElementById('dWA').value.trim();
+  state.pesan=document.getElementById('dPesan').value.trim();
+  state.tanaman=document.getElementById('sTanaman').value;
+  state.lokasi=document.getElementById('sLokasi').value;
+}
+
+function kirimWA(){
+  getData();
+  if(!state.nama){alert('Nama donatur wajib diisi!');return;}
+  if(!state.wa){alert('Nomor WhatsApp wajib diisi!');return;}
+  if(!state.nominal||state.nominal<50000){alert('Nominal donasi minimal Rp 50.000!');return;}
+  var tanaman=state.tanaman?'\n Tanaman: '+state.tanaman:'';
+  var lokasi=state.lokasi?'\n Lokasi: '+state.lokasi:'';
+  var pesan=state.pesan?'\n Doa/Pesan: '+state.pesan:'';
+  var nominal=state.nominal.toLocaleString('id-ID');
+  var msg="Assalamualaikum Kak Malvie\n\nSaya ingin berdonasi untuk:\nKembali ke Akar - Menuju Masa Depan\nYayasan Bahula Tani Nusantara\n\nNama: "+state.nama+"\nWA: "+state.wa+"\nNominal: Rp "+nominal+tanaman+lokasi+pesan+"\n\nMohon konfirmasi rekening dan langkah selanjutnya.\nJazakallahu khairan";
+  window.open('https://wa.me/6283871666136?text='+encodeURIComponent(msg),'_blank');
+}
+
+function buatSertifikat(){
+  getData();
+  if(!state.nama){alert('Isi nama donatur dulu!');return;}
+  if(!state.nominal||state.nominal<1000){alert('Tentukan nominal donasi dulu!');return;}
+  var now=new Date();
+  var bln=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var tgl=now.getDate()+' '+bln[now.getMonth()]+' '+now.getFullYear();
+  var no='BTN-DON-'+String(now.getFullYear()).slice(-2)+String(now.getMonth()+1).padStart(2,'0')+'-'+String(Math.floor(Math.random()*9000)+1000);
+  document.getElementById('sNo').textContent='No. '+no;
+  document.getElementById('sNama').textContent=state.nama.toUpperCase();
+  document.getElementById('sKota').textContent=state.wa;
+  document.getElementById('sNominal').textContent='Rp '+state.nominal.toLocaleString('id-ID');
+  document.getElementById('sTanggal').textContent=tgl;
+  document.getElementById('sTtdLoc').textContent='Sukabumi, '+tgl;
+  document.getElementById('sTtdLoc2').textContent='-, '+tgl;
+  document.getElementById('sTtdNama').textContent=state.nama.toUpperCase();
+  if(state.tanaman)document.getElementById('sTanamanS').textContent=state.tanaman;
+  if(state.lokasi)document.getElementById('sLokasiS').textContent=state.lokasi;
+  if(state.pesan){document.getElementById('sPesan').textContent='"'+state.pesan+'"';document.getElementById('sPesanRow').style.display='flex';}
+  else document.getElementById('sPesanRow').style.display='none';
+  document.getElementById('mainScreen').style.display='none';
+  document.getElementById('sertifScreen').style.display='block';
+  window.scrollTo(0,0);
+}
+function closeSertif(){document.getElementById('sertifScreen').style.display='none';document.getElementById('mainScreen').style.display='block';window.scrollTo(0,0);}
+function stampMeterai(){var m=document.getElementById('sertifMeterai');m.classList.add('stamped');m.style.cursor='default';showToast('Meterai ditempel!');}
+
+async function downloadSertif(){
+  var btn=document.getElementById('btnDL'),st=document.getElementById('dlStatus');
+  btn.disabled=true;st.style.display='block';
+  if(!window.html2canvas){
+    await new Promise(function(res,rej){var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});
+  }
+  try{
+    var canvas=await html2canvas(document.getElementById('sertifDoc'),{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false});
+    var a=document.createElement('a');
+    a.download='sertifikat-'+(state.nama||'donatur').replace(/\s+/g,'-').toLowerCase()+'.png';
+    a.href=canvas.toDataURL('image/png');a.click();
+    showToast('Sertifikat berhasil didownload!');
+  }catch(e){alert('Gagal membuat gambar. Gunakan tombol Cetak PDF.');}
+  btn.disabled=false;st.style.display='none';
+}
+
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2400);}
+
+// COUNTER
+function animateCounter(el,target,suffix){
+  suffix=suffix||'';
+  var start=0,step=target/60;
+  var timer=setInterval(function(){
+    start+=step;
+    if(start>=target){start=target;clearInterval(timer);}
+    el.textContent=Math.floor(start).toLocaleString('id')+suffix;
+  },2000/60);
+}
+var counterObs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      animateCounter(document.getElementById('ctrDonatur'),27,'');
+      animateCounter(document.getElementById('ctrPohon'),342,'');
+      animateCounter(document.getElementById('ctrLahan'),3,' ha');
+      counterObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+var cStrip=document.querySelector('.counter-strip');
+if(cStrip)counterObs.observe(cStrip);
+
+// COUNTDOWN
+function updateTimer(){
+  var target=new Date('2026-07-01T00:00:00');
+  var diff=target-new Date();
+  if(diff<=0){['tHari','tJam','tMenit','tDetik'].forEach(function(id){document.getElementById(id).textContent='00';});return;}
+  document.getElementById('tHari').textContent=String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('tJam').textContent=String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('tMenit').textContent=String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('tDetik').textContent=String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+}
+updateTimer();setInterval(updateTimer,1000);
+
+// KALKULATOR
+var kalkData=[
+  {min:1,max:1,nominal:50000,items:[{icon:'🌱',val:'1 bibit',label:'Tanaman'},{icon:'👨‍🌾',val:'0.5 hari',label:'Upah Petani'}]},
+  {min:2,max:2,nominal:100000,items:[{icon:'🌳',val:'1 pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'1 hari',label:'Upah Petani'},{icon:'🌿',val:'2 bibit',label:'Tambahan'}]},
+  {min:3,max:4,nominal:250000,items:[{icon:'🌳',val:'2-3 pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'3 hari',label:'Upah Petani'},{icon:'🌱',val:'5 kg',label:'Pupuk Organik'}]},
+  {min:5,max:6,nominal:500000,items:[{icon:'🌳',val:'5 pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'1 minggu',label:'Upah Petani'},{icon:'🐟',val:'50 ekor',label:'Bibit Ikan'}]},
+  {min:7,max:8,nominal:1000000,items:[{icon:'🌳',val:'10 pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'2 minggu',label:'Upah Petani'},{icon:'🌾',val:'1 petak',label:'Lahan'}]},
+  {min:9,max:9,nominal:2500000,items:[{icon:'🌳',val:'25 pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'1 bulan',label:'Upah Petani'},{icon:'🌿',val:'1 are',label:'Lahan Baru'}]},
+  {min:10,max:10,nominal:5000000,items:[{icon:'🌳',val:'50+ pohon',label:'Ditanam'},{icon:'👨‍🌾',val:'2 bulan',label:'Upah Petani'},{icon:'🌲',val:'0.5 ha',label:'Terjaga'}]},
+];
+function updateKalk(v){
+  v=parseInt(v);
+  var d=kalkData.find(function(k){return v>=k.min&&v<=k.max;})||kalkData[1];
+  document.getElementById('kalkNominal').textContent='Rp '+d.nominal.toLocaleString('id-ID');
+  document.getElementById('kalkHasil').innerHTML=d.items.map(function(i){
+    return '<div class="kh-item active"><div class="kh-icon">'+i.icon+'</div><div class="kh-val">'+i.val+'</div><div class="kh-label">'+i.label+'</div></div>';
+  }).join('');
+}
+updateKalk(2);
+
+// PETA
+function pilihLokPin(id){
+  document.querySelectorAll('.ploc').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById('pin-'+id);
+  if(el){el.classList.add('active');showToast('Lokasi: '+el.querySelector('.ploc-name').textContent);}
+}
+
+// FAQ
+function toggleFaq(el){
+  var item=el.parentElement;
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!isOpen)item.classList.add('open');
+}
+
+// SHARE
+function shareWA(){
+  var msg="Assalamualaikum!\n\nYuk bantu petani Sukabumi jaga hutan Gunung Guruh dari tambang.\nDonasi mulai Rp 50.000 - dapat sertifikat pohon digital.\n\nKembali ke Akar, Menuju Masa Depan\nYayasan Bahula Tani Nusantara\n\n"+window.location.href;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+function shareIG(){
+  var caption="Kembali ke Akar - Menuju Masa Depan\n\nBantu petani Sukabumi mempertahankan hutan Gunung Guruh. Donasi mulai Rp 50.000. Sertifikat pohon digital untuk setiap donatur.\n\nLink: "+window.location.href+"\n\n#JagaNgariksa #BahulaTaniNusantara #DonasiPohon #PertanianIndonesia #KonservasiHutan";
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(caption).then(function(){showToast('Caption IG tersalin! Paste di Instagram.');});
+  }
+}
+function copyLink(){
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(window.location.href).then(function(){showToast('Link berhasil disalin!');});
+  }
+}
+
+// REVEAL
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+// PROGRESS BAR
+var progObs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      setTimeout(function(){var f=document.getElementById('ptFill');if(f)f.style.width='0%';},200);
+      progObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+var pw=document.getElementById('progressWrap');
+if(pw)progObs.observe(pw);
+</script>
+</body>
+</html>
